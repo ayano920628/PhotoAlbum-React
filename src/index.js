@@ -1,26 +1,40 @@
 import React from 'react';
 import { render } from 'react-dom';
-// import { Provider } from 'react-redux';
-// import { createStore } from 'redux';
-// import LoginForm from './components/signin/login_form.js';
-import Header from './common/header.js';
-import Menu from './common/menu.js';
-import Contents from './route.js';
-import RegisterForm from './components/signin/register_form';
-import {
-  BrowserRouter as Router,
-  Route, Switch
-} from 'react-router-dom'
+import App from './App';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import * as reducers from './reducers';
+// ルーターの設定
+import { createBrowserHistory } from 'history'
+import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+
+// historyインスタンスを作成する処理追加
+const history = createBrowserHistory();
+
+// Storeを作成する
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    router: routerReducer
+  }),
+  // applyMiddleware関数でredux-loggerを設定
+  applyMiddleware(
+    routerMiddleware(history),
+    thunk,
+    logger
+  )
+);
 
 render(
   <React.Fragment>
-    <Header />
-    <Menu />
-    <Contents />
-    {/* <LoginForm /> */}
-    <div>aaa</div>
+    <Provider store={store}>
+      {/*ConnectedRouterコンポーネントを追加*/}
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </Provider>
   </React.Fragment>,
-  // <Provider store={store}>
-  // </Provider>,
   document.getElementById('root')
 );
