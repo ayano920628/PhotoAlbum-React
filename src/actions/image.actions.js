@@ -7,7 +7,18 @@ export const images = () => {
     imageService.show()
       .then(
         data => dispatch(imageShow(data)),
-        // error => dispatch(getMeFailure(error))
+        error => dispatch(imageFailure(error))
+      );
+  };
+}
+
+export const upload = () => {
+  return dispatch => {
+    // dispatch(imageRequest());
+    imageService.store()
+      .then(
+        data => dispatch(imageShow(data)),
+        error => dispatch(imageFailure(error))
       );
   };
 }
@@ -31,10 +42,10 @@ const imageShow = (data) => ({
 //   type: imageConstants.IMAGE_DESTROY,
 //   payload: data
 // });
-// const getMeFailure = (error) => ({
-//   type: imageConstants.GET_ME_FAILURE,
-//   error
-// });
+const imageFailure = (error) => ({
+  type: imageConstants.IMAGE_FAILURE,
+  error
+});
 
 // export const clearMe = () => ({
 //   type: imageConstants.CLEAR_ME

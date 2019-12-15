@@ -7,6 +7,7 @@ import Login from './containers/Login';
 import Signup from './containers/Signup';
 import Activate from './containers/Activate';
 import Dashboard from './containers/Dashboard';
+import Upload from './containers/Upload';
 import { PrivateRoute } from './components/PrivateRoute';
 import Registered from './components/Registered';
 
@@ -22,6 +23,7 @@ class App extends Component {
     return (
       <div className={classes.root}>
         <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+        <PrivateRoute path="/upload" component={Upload}></PrivateRoute>
         {/* <Route path="/dashboard" component={Dashboard}></Route> */}
         <Route path="/" exact={true} component={Login}></Route>
         <Route path="/register" exact={true} component={Signup}></Route>

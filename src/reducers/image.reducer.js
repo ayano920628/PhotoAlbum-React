@@ -45,6 +45,13 @@ export function image(state = initialState, action) {
     //     ...state,
     //     me: {},
     //   }
+    case imageConstants.IMAGE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
+
     default:
       return state
   }
