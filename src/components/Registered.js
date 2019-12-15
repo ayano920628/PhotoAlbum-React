@@ -48,38 +48,38 @@ const styles = theme => ({
   }
 });
 
-class Login extends Component {
+class Registered extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     email: '',
+  //     password: '',
+  //   }
+  //   this.handleChange = this.handleChange.bind(this);
+  //   this.handleSubmit = this.handleSubmit.bind(this);
+  // }
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
+  // handleChange(e) {
+  //   const { name, value } = e.target;
+  //   this.setState({ [name]: value });
+  // }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  // handleSubmit(e) {
+  //   e.preventDefault();
 
-    const { email, password } = this.state;
-    if (email && password) {
-      this.props.login(email, password);
-    }
-  }
+  //   const { email, password } = this.state;
+  //   if (email && password) {
+  //     this.props.login(email, password);
+  //   }
+  // }
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
       <React.Fragment>
         <Header menu="ログイン" />
         <CssBaseline />
-        <main className={classes.layout}>
+        {/* <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockIcon />
@@ -88,8 +88,8 @@ class Login extends Component {
             {this.props.error ?
               <p className={classes.alert}>ユーザ名またはパスワードが正しくありません。</p>
               : ''
-            }
-            <form className={classes.form}>
+            } */}
+        {/* <form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">ユーザー名またはメールアドレス</InputLabel>
                 <Input id="email" name="email" autoFocus onChange={this.handleChange} />
@@ -114,11 +114,11 @@ class Login extends Component {
               >
                 ログイン
               </Button>
-            </form>
-          </Paper>
-        </main>
+            </form> */}
+        {/* </Paper>
+        </main> */}
       </React.Fragment>
     );
   }
 }
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Registered);

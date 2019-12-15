@@ -2,7 +2,17 @@ import { userConstants } from '../constants';
 
 const initialState = {
   loading: false,
-  me: {}
+  me: {
+    user: {
+      created_at: null,
+      email: null,
+      email_verified_at: null,
+      family_id: null,
+      id: null,
+      name: null,
+      updated_at: null
+    }
+  }
 };
 
 export function user(state = initialState, action) {
@@ -28,7 +38,17 @@ export function user(state = initialState, action) {
     case userConstants.CLEAR_ME:
       return {
         ...state,
-        me: {},
+        me: {
+          user: {
+            created_at: null,
+            email: null,
+            email_verified_at: null,
+            family_id: null,
+            id: null,
+            name: null,
+            updated_at: null
+          }
+        },
       }
     default:
       return state

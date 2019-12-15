@@ -1,30 +1,41 @@
-import { userConstants } from '../constants';
-import { userService } from '../services';
+import { imageConstants } from '../constants';
+import { imageService } from '../services';
 
-export const getMe = () => {
+export const images = () => {
   return dispatch => {
-    dispatch(getMeRequest());
-
-    userService.getMe()
+    dispatch(imageRequest());
+    imageService.show()
       .then(
-        data => dispatch(getMeSuccess(data)),
-        error => dispatch(getMeFailure(error))
+        data => dispatch(imageShow(data)),
+        // error => dispatch(getMeFailure(error))
       );
   };
 }
 
-const getMeRequest = () => ({
-  type: userConstants.GET_ME_REQUEST
-});
-const getMeSuccess = (data) => ({
-  type: userConstants.GET_ME_SUCCESS,
-  payload: data
-});
-const getMeFailure = (error) => ({
-  type: userConstants.GET_ME_FAILURE,
-  error
+const imageRequest = () => ({
+  type: imageConstants.IMAGE_REQUEST
 });
 
-export const clearMe = () => ({
-  type: userConstants.CLEAR_ME
+// const getMeRequest = () => ({
+//   type: imageConstants.IMAGE_STORE
+// });
+const imageShow = (data) => ({
+  type: imageConstants.IMAGE_SHOW,
+  payload: data
 });
+// const getMeSuccess = (data) => ({
+//   type: imageConstants.IMAGE_UPDATE,
+//   payload: data
+// });
+// const getMeSuccess = (data) => ({
+//   type: imageConstants.IMAGE_DESTROY,
+//   payload: data
+// });
+// const getMeFailure = (error) => ({
+//   type: imageConstants.GET_ME_FAILURE,
+//   error
+// });
+
+// export const clearMe = () => ({
+//   type: imageConstants.CLEAR_ME
+// });

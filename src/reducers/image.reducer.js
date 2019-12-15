@@ -1,35 +1,50 @@
-import { userConstants } from '../constants';
+import { imageConstants } from '../constants';
 
 const initialState = {
   loading: false,
-  me: {}
+  image: {
+    created_at: null,
+    id: null,
+    img_comment_1: null,
+    img_comment_2: null,
+    img_name: 'aaa',
+    taken: null,
+    updated_at: null,
+    user_id: null
+  }
 };
 
-export function user(state = initialState, action) {
+export function image(state = initialState, action) {
   switch (action.type) {
-    case userConstants.GET_ME_REQUEST:
+    case imageConstants.IMAGE_REQUEST:
       return {
         ...state,
         loading: true,
         error: false,
       };
-    case userConstants.GET_ME_SUCCESS:
+    // case imageConstants.IMAGE_STORE:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     error: false,
+    //   };
+    case imageConstants.IMAGE_SHOW:
       return {
         ...state,
         loading: false,
-        me: action.payload,
+        image: action.payload,
       };
-    case userConstants.GET_ME_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: true,
-      };
-    case userConstants.CLEAR_ME:
-      return {
-        ...state,
-        me: {},
-      }
+    // case imageConstants.IMAGE_UPDATE:
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     error: true,
+    //   };
+    // case imageConstants.IMAGE_DESTROY:
+    //   return {
+    //     ...state,
+    //     me: {},
+    //   }
     default:
       return state
   }

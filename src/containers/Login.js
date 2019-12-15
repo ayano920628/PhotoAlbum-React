@@ -4,11 +4,6 @@ import { login } from '../actions/auth.actions';
 
 const mapStateToProps = (state, ownProps) => ({});
 
-// const mapDispatchToProps = dispatch => ({
-//   login(username, password) {
-//     dispatch(login(username, password));
-//   }
-// });
 const mapDispatchToProps = dispatch => ({
   login(email, password) {
     dispatch(login(email, password));

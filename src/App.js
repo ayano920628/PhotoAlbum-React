@@ -4,8 +4,11 @@ import { Route } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 import Login from './containers/Login';
+import Signup from './containers/Signup';
+import Activate from './containers/Activate';
 import Dashboard from './containers/Dashboard';
 import { PrivateRoute } from './components/PrivateRoute';
+import Registered from './components/Registered';
 
 const styles = {
   root: {
@@ -21,6 +24,9 @@ class App extends Component {
         <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
         {/* <Route path="/dashboard" component={Dashboard}></Route> */}
         <Route path="/" exact={true} component={Login}></Route>
+        <Route path="/register" exact={true} component={Signup}></Route>
+        <Route path="/registered" exact={true} component={Registered}></Route>
+        <Route path="/verify" component={Activate}></Route>
       </div>
     );
   }

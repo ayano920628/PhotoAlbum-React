@@ -48,13 +48,13 @@ const styles = theme => ({
   }
 });
 
-class Login extends Component {
+class Signup extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      // password: '',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,41 +68,35 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { email, password } = this.state;
-    if (email && password) {
-      this.props.login(email, password);
+    // const { email, password } = this.state;
+    // if (email && password) {
+    //   this.props.login(email, password);
+    // }
+    const { email } = this.state;
+    if (email) {
+      this.props.signup(email);
     }
   }
   render() {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        <Header menu="ログイン" />
+        <Header menu="サインアップ" />
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockIcon />
             </Avatar>
-            <Typography variant="headline">ログインしてはじめよう！</Typography>
+            <Typography variant="headline">サインアップしてはじめよう！</Typography>
             {this.props.error ?
               <p className={classes.alert}>ユーザ名またはパスワードが正しくありません。</p>
               : ''
             }
             <form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="email">ユーザー名またはメールアドレス</InputLabel>
+                <InputLabel htmlFor="email">メールアドレス</InputLabel>
                 <Input id="email" name="email" autoFocus onChange={this.handleChange} />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="password">パスワード</InputLabel>
-                <Input
-                  name="password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={this.handleChange}
-                />
               </FormControl>
               <Button
                 type="submit"
@@ -112,7 +106,7 @@ class Login extends Component {
                 className={classes.submit}
                 onClick={this.handleSubmit}
               >
-                ログイン
+                サインアップ
               </Button>
             </form>
           </Paper>
@@ -121,4 +115,4 @@ class Login extends Component {
     );
   }
 }
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Signup);

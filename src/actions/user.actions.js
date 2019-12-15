@@ -4,7 +4,6 @@ import { userService } from '../services';
 export const getMe = () => {
   return dispatch => {
     dispatch(getMeRequest());
-
     userService.getMe()
       .then(
         data => dispatch(getMeSuccess(data)),

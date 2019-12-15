@@ -48,12 +48,15 @@ const styles = theme => ({
   }
 });
 
-class Login extends Component {
-
+class Activate extends Component {
   constructor(props) {
     super(props);
+    let urlParamStr = {};
+    urlParamStr = window.location.search.split('=');
+    let code = urlParamStr[1];
     this.state = {
-      email: '',
+      name: '',
+      code: code,
       password: '',
     }
     this.handleChange = this.handleChange.bind(this);
@@ -67,32 +70,31 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
-    const { email, password } = this.state;
-    if (email && password) {
-      this.props.login(email, password);
+    const { name, code, password } = this.state;
+    if (name && code && password) {
+      this.props.activate(name, code, password);
     }
   }
   render() {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        <Header menu="ログイン" />
+        <Header menu="サインアップ" />
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockIcon />
             </Avatar>
-            <Typography variant="headline">ログインしてはじめよう！</Typography>
+            <Typography variant="headline">サインアップしてはじめよう！</Typography>
             {this.props.error ?
               <p className={classes.alert}>ユーザ名またはパスワードが正しくありません。</p>
               : ''
             }
             <form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="email">ユーザー名またはメールアドレス</InputLabel>
-                <Input id="email" name="email" autoFocus onChange={this.handleChange} />
+                <InputLabel htmlFor="name">名前</InputLabel>
+                <Input id="name" name="name" autoFocus onChange={this.handleChange} />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">パスワード</InputLabel>
@@ -112,7 +114,7 @@ class Login extends Component {
                 className={classes.submit}
                 onClick={this.handleSubmit}
               >
-                ログイン
+                サインアップ
               </Button>
             </form>
           </Paper>
@@ -121,4 +123,4 @@ class Login extends Component {
     );
   }
 }
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Activate);
