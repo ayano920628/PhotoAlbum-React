@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -21,16 +22,18 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
-        <PrivateRoute path="/upload" component={Upload}></PrivateRoute>
-        {/* <Route path="/upload" component={Upload}></Route> */}
-        {/* <Route path="/dashboard" component={Dashboard}></Route> */}
-        <Route path="/" exact={true} component={Login}></Route>
-        <Route path="/register" exact={true} component={Signup}></Route>
-        <Route path="/registered" exact={true} component={Registered}></Route>
-        <Route path="/verify" component={Activate}></Route>
-      </div>
+      <Router>
+        <div className={classes.root}>
+          <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+          <PrivateRoute path="/upload" component={Upload}></PrivateRoute>
+          {/* <Route path="/upload" component={Upload}></Route> */}
+          {/* <Route path="/dashboard" component={Dashboard}></Route> */}
+          <Route path="/" exact={true} component={Login}></Route>
+          <Route path="/register" exact={true} component={Signup}></Route>
+          <Route path="/registered" exact={true} component={Registered}></Route>
+          <Route path="/verify" component={Activate}></Route>
+        </div>
+      </Router>
     );
   }
 }

@@ -8,67 +8,75 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { withStyles } from '@material-ui/core/styles';
 
+import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
-// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 
+import { green } from '@material-ui/core/colors';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
-const styles = {
-  grow: {
-    flexGrow: 1,
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > svg': {
+      margin: theme.spacing(2),
+    },
   },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 20
-  },
-  // root: {
-  //   flexGrow: 1,
-  //   maxWidth: 500,
-  // },
+}));
+
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
 }
 
-function header(props) {
-  const { classes } = props;
-  // const [value, setValue] = React.useState('');
-  // const [value, setValue] = useState(0);
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
+function Header(props) {
+  const [value, setValue] = useState(0);
+  const classes = useStyles();
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="title" color="inherit" className={classes.grow}>
-          React + ReduxでJWT認証を導入しよう！
-        </Typography>
-        <Button color="inherit" onClick={props.onClick}>{props.menu}</Button>
-      </Toolbar>
-    </AppBar>
-    // <Paper square className={classes.root}>
-    //   <Tabs
-    //     value={value}
-    //     onChange={handleChange}
-    //     variant="fullWidth"
-    //     indicatorColor="secondary"
-    //     textColor="secondary"
-    //     aria-label="icon label tabs example"
-    //   >
-    //     <Tab icon={<PhoneIcon />} label="RECENTS" />
-    //     <Tab icon={<FavoriteIcon />} label="FAVORITES" />
-    //     <Tab icon={<PersonPinIcon />} label="NEARBY" />
-    //   </Tabs>
-    // </Paper>
+    // <AppBar position="static">
+    //   <Toolbar>
+    //     <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+    //       <MenuIcon />
+    //     </IconButton>
+    //     <Typography variant="title" color="inherit" className={classes.grow}>
+    //       React + ReduxでJWT認証を導入しよう！
+    //     </Typography>
+    //     <Button color="inherit" onClick={props.onClick}>{props.menu}</Button>
+    //   </Toolbar>
+    // </AppBar>
+
+    <Paper square className={classes.root}>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        variant="fullWidth"
+        indicatorColor="secondary"
+        textcolor="secondary"
+        aria-label="icon label tabs example"
+      >
+        <Tab icon={<HomeIcon />} label="HOME" to='/dashboard' component={Link} ></Tab>
+        <Tab icon={<FavoriteIcon />} label="FAVORITES" ></Tab>
+        <Tab icon={<AddPhotoAlternateIcon />} label="PHOTO" to='/upload' component={Link} ></Tab>
+      </Tabs >
+    </Paper >
 
   );
 }
 
-export default withStyles(styles)(header);
+export default Header;
