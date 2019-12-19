@@ -24,6 +24,7 @@ class App extends Component {
       <div className={classes.root}>
         <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
         <PrivateRoute path="/upload" component={Upload}></PrivateRoute>
+        {/* <Route path="/upload" component={Upload}></Route> */}
         {/* <Route path="/dashboard" component={Dashboard}></Route> */}
         <Route path="/" exact={true} component={Login}></Route>
         <Route path="/register" exact={true} component={Signup}></Route>

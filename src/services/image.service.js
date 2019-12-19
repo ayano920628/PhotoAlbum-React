@@ -1,4 +1,4 @@
-import { authHeader } from '../helpers';
+import { authHeader, authHeaderFile } from '../helpers';
 
 
 const apiHost = 'http://127.0.0.1:8000/api';
@@ -27,14 +27,20 @@ function handleResponse(response) {
   });
 }
 
-function store() {
-  const requestOptions = {
-    method: 'POST',
-    headers: authHeader()
-  };
-  return fetch(`${apiHost}/images`, requestOptions)
-    .then(handleResponse)
-
+function store(img_name) {
+  for (let i = 0; i < img_name.length; i++) {
+    const params = new FormData();
+    params.append('img_name', img_name[i]);
+    const requestOptions = {
+      method: 'POST',
+      headers: authHeader(),
+      body: params
+    };
+    fetch(`${apiHost}/images`, requestOptions);
+    // return fetch(`${apiHost}/images`, requestOptions)
+    //   .then(handleResponse)
+  }
+  return handleResponse;
 }
 
 function show() {

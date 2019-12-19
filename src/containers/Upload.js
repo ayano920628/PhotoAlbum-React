@@ -20,9 +20,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(logoutAndRedirect());
     dispatch(clearMe());
   },
-  onUpload() {
-    dispatch(upload());
-  }
+  onUpload(img_name) {
+    dispatch(upload(img_name));
+  },
 
 });
 

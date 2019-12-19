@@ -12,16 +12,26 @@ export const images = () => {
   };
 }
 
-export const upload = () => {
+export const upload = (img_name) => {
   return dispatch => {
     // dispatch(imageRequest());
-    imageService.store()
-      .then(
-        data => dispatch(imageShow(data)),
-        error => dispatch(imageFailure(error))
-      );
+    imageService.store(img_name)
+    // .then(
+    //   data => dispatch(imageShow(data)),
+    //   error => dispatch(imageFailure(error))
+    // );
   };
 }
+// export const sendfile = (file) => {
+//   return dispatch => {
+//     // dispatch(imageRequest());
+//     imageService.filestore(file)
+//       .then(
+//         data => dispatch(imageShow(data)),
+//         error => dispatch(imageFailure(error))
+//       );
+//   };
+// }
 
 const imageRequest = () => ({
   type: imageConstants.IMAGE_REQUEST
