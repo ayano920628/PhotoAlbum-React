@@ -3,7 +3,6 @@ import { Route, Redirect } from "react-router-dom"
 import AuthService from './services/AuthService'  // ログインチェックを行うサービス.
 
 class PrivateRoute extends Component {
-
   constructor(props) {
     super(props)
     this.authApi = new AuthService()
@@ -16,11 +15,9 @@ class PrivateRoute extends Component {
   }
 
   async componentDidMount() {
-
     // ログイン状態のチェック.
     // ここではasync/awaitで非同期に処理しているが、同期処理でもOK.
     const ok = await this.authApi.checkLogin()
-
     // 結果を反映.
     this.setState({
       loading: false,
@@ -29,18 +26,14 @@ class PrivateRoute extends Component {
   }
 
   render() {
-
     // ルーティング情報を取得.
     const { component: Component, ...rest } = this.props
-
     // ログインチェック状態を取得.
     const { loading, isAuthenticated } = this.state
-
     // ログインチェック前なら、ローディングを表示.
     if (loading) {
       return <div className="loading">Loading...</div>
     }
-
     // ログインチェック後はルーティング処理を行う.
     return (
       <Route {...rest} render={() => {

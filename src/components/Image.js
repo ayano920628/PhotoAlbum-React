@@ -3,15 +3,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Header from './Header';
-import { CommunicationPortableWifiOff } from 'material-ui/svg-icons';
+import Footer from './Footer';
 
 import Button from '@material-ui/core/Button';
-// import { makeStyles } from '@material-ui/core/styles';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import TextField from '@material-ui/core/TextField';
-
 const styles = theme => ({
   // root: {
   //   ...theme.mixins.gutters(),
@@ -42,14 +37,6 @@ const styles = theme => ({
   },
 });
 
-// const useStyles = makeStyles(theme => ({
-//   button: {
-//     margin: theme.spacing(1),
-//   },
-// }));
-
-let createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
-
 
 class UploadImage extends Component {
   constructor(props) {
@@ -60,7 +47,6 @@ class UploadImage extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.uploadFile = this.uploadFile.bind(this);
   }
 
   componentWillMount() {
@@ -81,55 +67,19 @@ class UploadImage extends Component {
     // }
   }
 
-  uploadFile(e) {
-    // this.setState({ img_name: e.target.files[0] });
-    this.setState({ img_name: e.target.files });
-    let image_url = [];
-    for (let i = 0; i < e.target.files.length; i++) {
-      image_url.push(createObjectURL(e.target.files[i]));
-    }
-    this.setState({ image_src: image_url });
-  };
 
   render() {
-    //   const classes = useStyles();
     const { classes } = this.props;
     return (
-      <div>
-        <Header menu="ログアウト" onClick={this.props.onDelete} />
+      <React.Fragment>
+        <Header />
         <Paper className={classes.paper} elevation={1}>
           <Typography variant="headline" component="h3">
             <div className={classes.root}>
-              <input
-                accept="image/*"
-                className={classes.input}
-                id="contained-button-file"
-                multiple
-                type="file"
-                name="img_name"
-                onChange={this.uploadFile}
-              />
-              <label htmlFor="contained-button-file">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  startIcon={<CloudUploadIcon />}
-                  component="span"
-                >
-                  Upload
-                </Button>
-              </label>
-              {/* <form className={classes.root} noValidate autoComplete="off">
+              <img src='' alt='' />
+              <form className={classes.root} noValidate autoComplete="off">
                 <TextField id="standard-basic" label="Standard" name="img_comment_1" onChange={this.handleChange} />
               </form>
-              <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-              <label htmlFor="icon-button-file">
-                <IconButton color="primary" aria-label="upload picture" component="span">
-                  <PhotoCamera />
-                </IconButton>
-              </label> */}
-
               <Button
                 variant="contained"
                 // variant="raised"
@@ -141,13 +91,12 @@ class UploadImage extends Component {
                 Save
               </Button>
             </div>
-            {this.state.image_src.map((image) => <img src={image} alt='' />)}
-
           </Typography>
           <Typography component="p">
           </Typography>
         </Paper>
-      </div >
+        <Footer />
+      </React.Fragment>
     );
   }
 }

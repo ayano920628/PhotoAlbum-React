@@ -9,6 +9,7 @@ import Signup from './containers/Signup';
 import Activate from './containers/Activate';
 import Dashboard from './containers/Dashboard';
 import Upload from './containers/Upload';
+import Image from './containers/Image';
 import { PrivateRoute } from './components/PrivateRoute';
 import Registered from './components/Registered';
 
@@ -24,8 +25,9 @@ class App extends Component {
     return (
       <Router>
         <div className={classes.root}>
-          <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
-          <PrivateRoute path="/upload" component={Upload}></PrivateRoute>
+          <PrivateRoute path="/dashboard" exact={true} component={Dashboard}></PrivateRoute>
+          <PrivateRoute path="/upload" exact={true} component={Upload}></PrivateRoute>
+          <PrivateRoute path="/image" component={Image}></PrivateRoute>
           {/* <Route path="/upload" component={Upload}></Route> */}
           {/* <Route path="/dashboard" component={Dashboard}></Route> */}
           <Route path="/" exact={true} component={Login}></Route>
