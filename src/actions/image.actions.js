@@ -33,7 +33,7 @@ export const imageEdit = (id) => {
   return dispatch => {
     imageService.edit(id)
       .then(
-        data => dispatch(imageShow(data)),
+        data => dispatch(imageRead(data)),
         error => dispatch(imageFailure(error))
       );
   }
@@ -45,6 +45,14 @@ export const imageUpdate = (id, img_comment_1, img_comment_2) => {
   }
 };
 
+export const imageChange = (value) => {
+  return dispatch => {
+    dispatch({
+      type: imageConstants.IMAGE_CHANGE,
+      payload: value
+    })
+  }
+};
 
 const imageRequest = () => ({
   type: imageConstants.IMAGE_REQUEST
@@ -56,6 +64,16 @@ const imageRequest = () => ({
 const imageShow = (data) => ({
   type: imageConstants.IMAGE_SHOW,
   payload: data
+});
+
+const imageRead = (data) => ({
+  type: imageConstants.IMAGE_READ,
+  payload: data
+});
+
+const imageChangeState = (value) => ({
+  type: imageConstants.IMAGE_READ,
+  payload: value
 });
 
 // const getMeSuccess = (data) => ({

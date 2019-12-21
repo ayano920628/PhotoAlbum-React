@@ -54,13 +54,17 @@ class UploadImage extends Component {
   }
 
   componentWillMount() {
+    this.props.onMount();
+  }
+
+  componentDidMount() {
     const { id } = this.props.match.params;
-    this.props.onMount(id);
+    if (id) this.props.onGetImage(id);
   }
 
   handleChange(e) {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    this.props.onChange(value);
   }
 
   handleDelete() {
@@ -77,6 +81,7 @@ class UploadImage extends Component {
 
   render() {
     const { classes, image } = this.props;
+    console.log(this.props);
     return (
       <React.Fragment>
         <Header />
@@ -87,9 +92,9 @@ class UploadImage extends Component {
               <form className={classes.root} noValidate autoComplete="off">
                 <TextField
                   id="standard-basic"
-                  label="Standard"
+                  label=""
                   name="img_comment_1"
-                  value={this.state.img_comment_1}
+                  value={this.props.image.image.img_comment_1}
                   // value={image.image.img_comment_1}
                   onChange={this.handleChange}
                 />

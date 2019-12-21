@@ -77,7 +77,7 @@ class Login extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        <Header menu="ログイン" />
+        <Header />
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>

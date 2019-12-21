@@ -9,7 +9,7 @@ export const imageService = {
   edit,
   update,
   destroy,
-  logout
+  logout,
 };
 
 function handleResponse(response) {

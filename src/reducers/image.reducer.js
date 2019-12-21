@@ -3,14 +3,14 @@ import { imageConstants } from '../constants';
 const initialState = {
   loading: false,
   image: {
-    created_at: null,
-    id: null,
-    img_comment_1: null,
-    img_comment_2: null,
-    img_name: null,
-    taken: null,
-    updated_at: null,
-    user_id: null
+    created_at: '',
+    id: '',
+    img_comment_1: '',
+    img_comment_2: '',
+    img_name: '',
+    taken: '',
+    updated_at: '',
+    user_id: ''
   }
 };
 
@@ -35,7 +35,7 @@ export function image(state = initialState, action) {
         loading: false,
         image: action.payload,
       };
-    case imageConstants.IMAGE_EDIT:
+    case imageConstants.IMAGE_READ:
       return {
         ...state,
         loading: false,
@@ -46,6 +46,16 @@ export function image(state = initialState, action) {
         ...state,
         loading: false,
         error: true,
+      };
+    case imageConstants.IMAGE_CHANGE:
+      return {
+        ...state,
+        loading: false,
+        image: {
+          ...state.image,
+          img_comment_1: action.payload,
+        },
+        // error: true,
       };
 
     default:
