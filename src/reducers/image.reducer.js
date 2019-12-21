@@ -35,17 +35,12 @@ export function image(state = initialState, action) {
         loading: false,
         image: action.payload,
       };
-    // case imageConstants.IMAGE_UPDATE:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     error: true,
-    //   };
-    // case imageConstants.IMAGE_DESTROY:
-    //   return {
-    //     ...state,
-    //     me: {},
-    //   }
+    case imageConstants.IMAGE_EDIT:
+      return {
+        ...state,
+        loading: false,
+        image: action.payload,
+      };
     case imageConstants.IMAGE_FAILURE:
       return {
         ...state,

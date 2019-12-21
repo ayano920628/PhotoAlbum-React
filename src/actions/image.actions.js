@@ -22,16 +22,29 @@ export const upload = (img_name) => {
     // );
   };
 }
-// export const sendfile = (file) => {
-//   return dispatch => {
-//     // dispatch(imageRequest());
-//     imageService.filestore(file)
-//       .then(
-//         data => dispatch(imageShow(data)),
-//         error => dispatch(imageFailure(error))
-//       );
-//   };
-// }
+
+export const imageDelete = (id) => {
+  return dispatch => {
+    imageService.destroy(id)
+  }
+};
+
+export const imageEdit = (id) => {
+  return dispatch => {
+    imageService.edit(id)
+      .then(
+        data => dispatch(imageShow(data)),
+        error => dispatch(imageFailure(error))
+      );
+  }
+};
+
+export const imageUpdate = (id, img_comment_1, img_comment_2) => {
+  return dispatch => {
+    imageService.update(id, img_comment_1, img_comment_2)
+  }
+};
+
 
 const imageRequest = () => ({
   type: imageConstants.IMAGE_REQUEST
@@ -44,6 +57,7 @@ const imageShow = (data) => ({
   type: imageConstants.IMAGE_SHOW,
   payload: data
 });
+
 // const getMeSuccess = (data) => ({
 //   type: imageConstants.IMAGE_UPDATE,
 //   payload: data

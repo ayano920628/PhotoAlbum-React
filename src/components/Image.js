@@ -7,6 +7,10 @@ import Footer from './Footer';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import DeleteIcon from '@material-ui/icons/Delete';
+// import SvgIcon from '@material-ui/core/SvgIcon';
+
+
 const styles = theme => ({
   // root: {
   //   ...theme.mixins.gutters(),
@@ -37,20 +41,21 @@ const styles = theme => ({
   },
 });
 
-
 class UploadImage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      img_name: '',
-      image_src: [],
+      img_comment_1: '',
+      img_comment_2: '',
     }
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   componentWillMount() {
-    this.props.onMount();
+    const { id } = this.props.match.params;
+    this.props.onMount(id);
   }
 
   handleChange(e) {
@@ -58,27 +63,36 @@ class UploadImage extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { img_name } = this.state;
-    this.props.onUpload(img_name);
-    // if (email && password) {
-    // this.props.onUpload(img_name, img_comment_1);
-    // }
+  handleDelete() {
+    const { id } = this.props.match.params;
+    this.props.onDeleteImage(id);
   }
 
+  handleUpdate(e) {
+    e.preventDefault();
+    const { id } = this.props.match.params;
+    const { img_comment_1, img_comment_2 } = this.state;
+    this.props.onUpdateImage(id, img_comment_1, img_comment_2);
+  }
 
   render() {
-    const { classes } = this.props;
+    const { classes, image } = this.props;
     return (
       <React.Fragment>
         <Header />
         <Paper className={classes.paper} elevation={1}>
           <Typography variant="headline" component="h3">
             <div className={classes.root}>
-              <img src='' alt='' />
+              <img src={`${process.env.PUBLIC_URL}/${image.image.img_name}`} alt='' />
               <form className={classes.root} noValidate autoComplete="off">
-                <TextField id="standard-basic" label="Standard" name="img_comment_1" onChange={this.handleChange} />
+                <TextField
+                  id="standard-basic"
+                  label="Standard"
+                  name="img_comment_1"
+                  value={this.state.img_comment_1}
+                  // value={image.image.img_comment_1}
+                  onChange={this.handleChange}
+                />
               </form>
               <Button
                 variant="contained"
@@ -87,9 +101,11 @@ class UploadImage extends Component {
                 type="submit"
                 fullWidth
                 className={classes.submit}
-                onClick={this.handleSubmit}>
+                onClick={this.handleUpdate}>
                 Save
               </Button>
+              <Button onClick={this.handleDelete}><DeleteIcon /></Button>
+
             </div>
           </Typography>
           <Typography component="p">

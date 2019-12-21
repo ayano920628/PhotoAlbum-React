@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-// import Paper from '@material-ui/core/Paper';
-// import Typography from '@material-ui/core/Typography';
 import Header from './Header';
 import Footer from './Footer';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-// import tileData from './tileData';
 import { Link } from 'react-router-dom';
-
-
 import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
@@ -52,7 +47,7 @@ const styles = theme => ({
   },
 });
 
-class Dashboard extends Component {
+class Album extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -119,4 +114,4 @@ class Dashboard extends Component {
     }
   }
 }
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(Album);

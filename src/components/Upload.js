@@ -3,14 +3,13 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Header from './Header';
-import { CommunicationPortableWifiOff } from 'material-ui/svg-icons';
+import Footer from './Footer';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 
 import Button from '@material-ui/core/Button';
 // import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   // root: {
@@ -18,6 +17,14 @@ const styles = theme => ({
   //   paddingTop: theme.spacing.unit * 2,
   //   paddingBottom: theme.spacing.unit * 2,
   // },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+
   paper: {
     width: '50%',
     margin: '0 auto',
@@ -31,12 +38,12 @@ const styles = theme => ({
   button: {
     margin: theme.spacing(1),
   },
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-  },
+  // root: {
+  //   '& > *': {
+  //     margin: theme.spacing(1),
+  //     width: 200,
+  //   },
+  // },
   input: {
     display: 'none',
   },
@@ -95,8 +102,8 @@ class UploadImage extends Component {
     //   const classes = useStyles();
     const { classes } = this.props;
     return (
-      <div>
-        <Header menu="ログアウト" onClick={this.props.onDelete} />
+      <React.Fragment>
+        <Header />
         <Paper className={classes.paper} elevation={1}>
           <Typography variant="headline" component="h3">
             <div className={classes.root}>
@@ -141,13 +148,25 @@ class UploadImage extends Component {
                 Save
               </Button>
             </div>
-            {this.state.image_src.map((image) => <img src={image} alt='' />)}
+            {/* {this.state.image_src.map((image) => <img src={image} alt='' />)} */}
+            <div className={classes.root}>
+              <GridList cellHeight={200} spacing={1} className={classes.gridList}>
+                {this.state.image_src.map((image) => (
+                  <GridListTile>
+                    <img src={image} alt='' />
+                  </GridListTile>
+                ))}
+              </GridList>
+            </div>
+
 
           </Typography>
           <Typography component="p">
           </Typography>
         </Paper>
-      </div >
+        <Footer />
+        <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
+      </React.Fragment>
     );
   }
 }
