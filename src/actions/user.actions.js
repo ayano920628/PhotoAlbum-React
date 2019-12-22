@@ -12,6 +12,18 @@ export const getMe = () => {
   };
 }
 
+export const inputEmailInfo = (inputdata) => {
+  return dispatch => {
+    dispatch(inputLoginEmailInfo(inputdata));
+  };
+}
+
+export const inputPasswordInfo = (inputdata) => {
+  return dispatch => {
+    dispatch(inputLoginPasswordInfo(inputdata));
+  };
+}
+
 const getMeRequest = () => ({
   type: userConstants.GET_ME_REQUEST
 });
@@ -22,6 +34,14 @@ const getMeSuccess = (data) => ({
 const getMeFailure = (error) => ({
   type: userConstants.GET_ME_FAILURE,
   error
+});
+const inputLoginEmailInfo = (inputdata) => ({
+  type: userConstants.INPUT_EMAIL_DATA,
+  payload: inputdata
+});
+const inputLoginPasswordInfo = (inputdata) => ({
+  type: userConstants.INPUT_PASSWORD_DATA,
+  payload: inputdata
 });
 
 export const clearMe = () => ({

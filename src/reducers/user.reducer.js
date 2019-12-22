@@ -4,13 +4,13 @@ const initialState = {
   loading: false,
   me: {
     user: {
-      created_at: null,
-      email: null,
-      email_verified_at: null,
-      family_id: null,
-      id: null,
-      name: null,
-      updated_at: null
+      created_at: '',
+      email: '',
+      email_verified_at: '',
+      family_id: '',
+      id: '',
+      name: '',
+      updated_at: ''
     }
   }
 };
@@ -35,18 +35,38 @@ export function user(state = initialState, action) {
         loading: false,
         error: true,
       };
+    case userConstants.INPUT_EMAIL_DATA:
+      return {
+        ...state,
+        me: {
+          user: {
+            ...state.me.user,
+            email: action.payload.email,
+          }
+        },
+      };
+    case userConstants.INPUT_PASSWORD_DATA:
+      return {
+        ...state,
+        me: {
+          user: {
+            ...state.me.user,
+            password: action.payload.password,
+          }
+        },
+      };
     case userConstants.CLEAR_ME:
       return {
         ...state,
         me: {
           user: {
-            created_at: null,
-            email: null,
-            email_verified_at: null,
-            family_id: null,
-            id: null,
-            name: null,
-            updated_at: null
+            created_at: '',
+            email: '',
+            email_verified_at: '',
+            family_id: '',
+            id: '',
+            name: '',
+            updated_at: ''
           }
         },
       }

@@ -61,14 +61,25 @@ class Login extends Component {
   }
 
   handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+    const data = { email: '', password: '' };
+    switch (e.target.name) {
+      case 'email':
+        data.email = e.target.value;
+        this.props.onEmailChange(data);
+        break;
+      case 'password':
+        data.password = e.target.value;
+        this.props.onPasswordChange(data);
+        break;
+    }
+    // const { name, value } = e.target;
+    // this.setState({ [name]: value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-
-    const { email, password } = this.state;
+    // console.log(this.props);
+    const { email, password } = this.props.me.user;
     if (email && password) {
       this.props.login(email, password);
     }

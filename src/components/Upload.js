@@ -65,7 +65,7 @@ class UploadImage extends Component {
       img_name: '',
       image_src: [],
     }
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
   }
@@ -74,10 +74,10 @@ class UploadImage extends Component {
     this.props.onMount();
   }
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
+  // handleChange(e) {
+  //   const { name, value } = e.target;
+  //   this.setState({ [name]: value });
+  // }
 
   handleSubmit(e) {
     e.preventDefault();

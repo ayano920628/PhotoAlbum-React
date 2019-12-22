@@ -75,7 +75,7 @@ class UploadImage extends Component {
   handleUpdate(e) {
     e.preventDefault();
     const { id } = this.props.match.params;
-    const { img_comment_1, img_comment_2 } = this.state;
+    const { img_comment_1, img_comment_2 } = this.props.image.image;
     this.props.onUpdateImage(id, img_comment_1, img_comment_2);
   }
 

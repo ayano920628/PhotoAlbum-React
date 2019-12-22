@@ -58,9 +58,6 @@ const imageRequest = () => ({
   type: imageConstants.IMAGE_REQUEST
 });
 
-// const getMeRequest = () => ({
-//   type: imageConstants.IMAGE_STORE
-// });
 const imageShow = (data) => ({
   type: imageConstants.IMAGE_SHOW,
   payload: data
@@ -71,24 +68,7 @@ const imageRead = (data) => ({
   payload: data
 });
 
-const imageChangeState = (value) => ({
-  type: imageConstants.IMAGE_READ,
-  payload: value
-});
-
-// const getMeSuccess = (data) => ({
-//   type: imageConstants.IMAGE_UPDATE,
-//   payload: data
-// });
-// const getMeSuccess = (data) => ({
-//   type: imageConstants.IMAGE_DESTROY,
-//   payload: data
-// });
 const imageFailure = (error) => ({
   type: imageConstants.IMAGE_FAILURE,
   error
 });
-
-// export const clearMe = () => ({
-//   type: imageConstants.CLEAR_ME
-// });
