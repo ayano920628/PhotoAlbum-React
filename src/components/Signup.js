@@ -54,25 +54,19 @@ class Signup extends Component {
     super(props);
     this.state = {
       email: '',
-      // password: '',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+    const { value } = e.target;
+    this.props.onChange(value);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-
-    // const { email, password } = this.state;
-    // if (email && password) {
-    //   this.props.login(email, password);
-    // }
-    const { email } = this.state;
+    const { email } = this.props.me.user;
     if (email) {
       this.props.signup(email);
     }

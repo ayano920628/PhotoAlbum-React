@@ -55,6 +55,16 @@ export function user(state = initialState, action) {
           }
         },
       };
+    case userConstants.INPUT_SIGNUP_DATA:
+      return {
+        ...state,
+        me: {
+          user: {
+            ...state.me.user,
+            email: action.payload,
+          }
+        },
+      };
     case userConstants.CLEAR_ME:
       return {
         ...state,

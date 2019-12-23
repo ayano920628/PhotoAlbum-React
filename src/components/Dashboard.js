@@ -59,9 +59,6 @@ class Dashboard extends Component {
       img_name: '',
       image_src: '',
     }
-  }
-
-  componentWillMount() {
     this.props.onMount();
   }
 

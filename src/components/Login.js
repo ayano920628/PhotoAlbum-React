@@ -11,8 +11,15 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Header from './Header';
+// import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
   layout: {
     width: 'auto',
     display: 'block',
@@ -72,8 +79,6 @@ class Login extends Component {
         this.props.onPasswordChange(data);
         break;
     }
-    // const { name, value } = e.target;
-    // this.setState({ [name]: value });
   }
 
   handleSubmit(e) {
@@ -126,6 +131,11 @@ class Login extends Component {
                 ログイン
               </Button>
             </form>
+            <Typography className={classes.root}>
+              <Button variant="contained" color="primary" to='/register' component={Link}>
+                登録がまだの方はこちら
+              </Button>
+            </Typography>
           </Paper>
         </main>
       </React.Fragment>

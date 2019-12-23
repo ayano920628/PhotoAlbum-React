@@ -24,6 +24,12 @@ export const inputPasswordInfo = (inputdata) => {
   };
 }
 
+export const signUpInfo = (value) => {
+  return dispatch => {
+    dispatch(inputSignupInfo(value));
+  };
+}
+
 const getMeRequest = () => ({
   type: userConstants.GET_ME_REQUEST
 });
@@ -42,6 +48,10 @@ const inputLoginEmailInfo = (inputdata) => ({
 const inputLoginPasswordInfo = (inputdata) => ({
   type: userConstants.INPUT_PASSWORD_DATA,
   payload: inputdata
+});
+const inputSignupInfo = (value) => ({
+  type: userConstants.INPUT_SIGNUP_DATA,
+  payload: value
 });
 
 export const clearMe = () => ({

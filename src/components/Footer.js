@@ -9,13 +9,87 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+
 const useStyles = makeStyles(theme => ({
   root: {
     '& > svg': {
       margin: theme.spacing(2),
     },
   },
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+
 }));
+
+function FooterMe() {
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (side, open) => event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [side]: open });
+  };
+
+  const sideList = side => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        <ListItem button key=''>
+          <ListItemIcon><InboxIcon /></ListItemIcon>
+          <ListItemText primary='logout' />
+        </ListItem>
+        {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))} */}
+      </List>
+    </div>
+  );
+  return (
+    <div>
+      <Button onClick={toggleDrawer('right', true)}>Open Right</Button>
+      <Drawer anchor="right" open={state.right} onClose={toggleDrawer('right', false)}>
+        {sideList('right')}
+      </Drawer>
+    </div>
+  );
+}
 
 function HomeIcon(props) {
   return (
@@ -44,7 +118,8 @@ function Footer() {
       >
         <Tab icon={<HomeIcon />} label="HOME" to='/dashboard' component={Link} ></Tab>
         <Tab icon={<FavoriteIcon />} label="FAVORITES" ></Tab>
-        <Tab icon={<PersonIcon />} label="ME" to='/upload' component={Link} ></Tab>
+        {/* <Tab icon={<PersonIcon />} label="ME" to='/upload' component={Link} ></Tab> */}
+        <Tab icon={<FooterMe />} ></Tab>
       </Tabs >
     </Paper >
   );
