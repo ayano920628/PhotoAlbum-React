@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-// import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Footer from './Footer';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,9 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
   gridList: {
     width: 500,
-    // width: '80%',
     height: 600,
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },
   titleBar: {
@@ -40,68 +38,18 @@ const useStyles = makeStyles(theme => ({
   icon: {
     color: 'white',
   },
+  // table: {
+  //   minWidth: 500,
+  // },
 }));
 
-
-// class Albumcopy extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       img_name: '',
-//       image_src: '',
-//     }
-//     this.props.onMount();
-//   }
-
-//   render() {
-//     const { classes, me, image } = this.props;
-//     if (image.image.length >= 1) {
-//       return (
-//         <div>
-//           <Header />
-//           <div className={classes.root}>
-//             <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-//               {image.image.map((item) => (
-//                 <GridListTile>
-//                   <img src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
-//                 </GridListTile>
-//               ))}
-//             </GridList>
-//           </div>
-//           <Footer />
-//           <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
-//         </div>
-//       );
-//     } else {
-//       return (
-//         <div >
-//           <Header />
-//           <Footer />
-//           <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
-//         </div >
-//       )
-//     }
-//   }
-// }
-
-function Albumcopy() {
-  const [value, setValue] = useState(0);
+function Albumcopy(props) {
   const classes = useStyles();
   useEffect(() => {
-    this.props.onMount();
+    props.onMount();
   }, []);
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     img_name: '',
-  //     image_src: '',
-  //   }
-  //   this.props.onMount();
-  // }
-
-  // render() {
-  const { me, image } = this.props;
+  const { me, image } = props;
   if (image.image.length >= 1) {
     return (
       <div>
@@ -116,7 +64,7 @@ function Albumcopy() {
           </GridList>
         </div>
         <Footer />
-        <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
+        <Button color="inherit" onClick={props.onDelete}>logout</Button>
       </div>
     );
   } else {
@@ -124,11 +72,10 @@ function Albumcopy() {
       <div >
         <Header />
         <Footer />
-        <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
+        <Button color="inherit" onClick={props.onDelete}>logout</Button>
       </div >
     )
   }
-  // }
 }
 
 export default Albumcopy;

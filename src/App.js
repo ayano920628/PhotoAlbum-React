@@ -13,6 +13,8 @@ import Image from './containers/Image';
 import Album from './containers/Album';
 import Albumcopy from './containers/Albumcopy';
 
+import CustomPaginationActionsTable from './components/test';
+
 import { PrivateRoute } from './components/PrivateRoute';
 import Registered from './components/Registered';
 
@@ -43,6 +45,7 @@ class App extends Component {
             <Route path="/register" exact={true} component={Signup}></Route>
             <Route path="/registered" exact={true} component={Registered}></Route>
             <Route path="/verify" component={Activate}></Route>
+            <Route path="/test" component={CustomPaginationActionsTable}></Route>
           </div>
         </Router>
       </React.Fragment>
