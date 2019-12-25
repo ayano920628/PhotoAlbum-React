@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
-import Footer from './Footer';
+// import { Footer } from './Footer';
+import Footer from '../containers/Footer';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
+import Image from 'react-image-resizer';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import Pagination from "material-ui-flat-pagination";
 
+const theme = createMuiTheme();
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,13 +44,11 @@ const useStyles = makeStyles(theme => ({
   icon: {
     color: 'white',
   },
-  // table: {
-  //   minWidth: 500,
-  // },
 }));
 
 function Albumcopy(props) {
   const classes = useStyles();
+  const [offset, setOffset] = useState(0);
   useEffect(() => {
     props.onMount();
   }, []);
@@ -55,16 +59,32 @@ function Albumcopy(props) {
       <div>
         <Header />
         <div className={classes.root}>
-          <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-            {image.image.map((item) => (
-              <GridListTile>
-                <img src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
-              </GridListTile>
-            ))}
+          <GridList cellHeight={200} spacing={3} className={classes.gridList}>
+            {image.image
+              .slice(offset, offset + 6)
+              .map((item) => (
+                <GridListTile>
+                  <Image
+                    src={`${process.env.PUBLIC_URL}/${item.img_name}`}
+                    alt=''
+                    width={180}
+                    height={180} />
+                </GridListTile>
+              ))
+            }
           </GridList>
         </div>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+          <Pagination
+            limit={6}
+            offset={offset}
+            total={image.image.length}
+            onClick={(e, offset) => setOffset(offset)}
+          />
+        </MuiThemeProvider>
+
         <Footer />
-        <Button color="inherit" onClick={props.onDelete}>logout</Button>
       </div>
     );
   } else {

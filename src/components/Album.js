@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Header from './Header';
-import Footer from './Footer';
-import Albumcopy from './Albumcopy';
+// import { Footer } from './Footer';
+import Footer from '../containers/Footer';
+import Albumcopy from '../containers/Albumcopy';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
@@ -22,18 +23,20 @@ import { pdf, BlobProvider } from '@react-pdf/renderer';
 //   }
 // });
 
-// const MyDoc = () => (
-//   <Document>
-//     <Page size="A4" style={styles.page}>
-//       <View style={styles.section}>
-//         <Text>Section #1</Text>
-//       </View>
-//       <View style={styles.section}>
-//         <Text>Section #2</Text>
-//       </View>
-//     </Page>
-//   </Document>
-// );
+const MyDoc = () => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        {/* <Albumcopy /> */}
+
+        <Text>Section #1</Text>
+      </View>
+      <View style={styles.section}>
+        <Text>Section #2</Text>
+      </View>
+    </Page>
+  </Document>
+);
 // const blob = pdf(MyDoc).toBlob();
 
 const styles = theme => ({
@@ -47,8 +50,8 @@ const styles = theme => ({
   layout: {
     width: 'auto',
     display: 'block',
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
+    marginLeft: theme.spacing(0),
+    marginRight: theme.spacing(0),
     [theme.breakpoints.up(400 + theme.spacing(3 * 2))]: {
       width: 400,
       marginLeft: 'auto',
@@ -69,7 +72,7 @@ const styles = theme => ({
   gridList: {
     width: 500,
     // width: '80%',
-    height: 600,
+    height: 500,
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },
@@ -100,9 +103,13 @@ class Album extends Component {
         <React.Fragment>
           <Header />
           <main className={classes.layout}>
-            <Button variant="contained" color="primary" >
+            {/* <Button variant="contained" color="primary" >
               アルバムpreview
-            </Button>
+            </Button> */}
+            {/* <PDFDownloadLink document={<MyDoc props={this.props} />} fileName="somename.pdf">
+              {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+            </PDFDownloadLink> */}
+
             <div className={classes.root}>
               <GridList cellHeight={200} spacing={1} className={classes.gridList}>
                 {image.image.map((item) => (
@@ -113,9 +120,6 @@ class Album extends Component {
               </GridList>
             </div>
             <div>
-              {/* <PDFDownloadLink document={<MyDoc />} fileName="somename.pdf">
-              {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
-            </PDFDownloadLink> */}
               {/* <BlobProvider document={MyDoc}>
               {({ blob, url, loading, error }) => {
                 return <div>There's something going on on the fly</div>
@@ -124,7 +128,6 @@ class Album extends Component {
             </div>
           </main>
           <Footer />
-          <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
         </React.Fragment >
       );
     } else {

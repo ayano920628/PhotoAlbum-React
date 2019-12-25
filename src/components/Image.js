@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Header from './Header';
-import Footer from './Footer';
+// import { Footer } from './Footer';
+import Footer from '../containers/Footer';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -109,8 +110,6 @@ class UploadImage extends Component {
                 onClick={this.handleUpdate}>
                 Save
               </Button>
-              <Button onClick={this.handleDelete}><DeleteIcon /></Button>
-
             </div>
           </Typography>
           <Typography component="p">

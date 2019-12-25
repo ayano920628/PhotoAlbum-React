@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonIcon from '@material-ui/icons/Person';
@@ -19,6 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     '& > svg': {
@@ -34,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-function FooterMe() {
+function FooterMe(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -42,7 +43,6 @@ function FooterMe() {
     bottom: false,
     right: false,
   });
-
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -70,20 +70,14 @@ function FooterMe() {
       <List>
         <ListItem button key=''>
           <ListItemIcon><InboxIcon /></ListItemIcon>
-          <ListItemText primary='logout' />
+          <ListItemText primary='logout' onClick={props.props.onDelete} />
         </ListItem>
-        {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))} */}
       </List>
     </div>
   );
   return (
     <div>
-      <Button onClick={toggleDrawer('right', true)}>Open Right</Button>
+      <Button onClick={toggleDrawer('right', true)}><PersonIcon /></Button>
       <Drawer anchor="right" open={state.right} onClose={toggleDrawer('right', false)}>
         {sideList('right')}
       </Drawer>
@@ -99,13 +93,12 @@ function HomeIcon(props) {
   );
 }
 
-function Footer() {
+export default function Footer(props) {
   const [value, setValue] = useState(0);
   const classes = useStyles();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <Paper square className={classes.root}>
       <Tabs
@@ -118,11 +111,9 @@ function Footer() {
       >
         <Tab icon={<HomeIcon />} label="HOME" to='/dashboard' component={Link} ></Tab>
         <Tab icon={<FavoriteIcon />} label="FAVORITES" ></Tab>
-        {/* <Tab icon={<PersonIcon />} label="ME" to='/upload' component={Link} ></Tab> */}
-        <Tab icon={<FooterMe />} ></Tab>
+        <Tab icon={<FooterMe props={props} />} label="ME" ></Tab>
       </Tabs >
     </Paper >
   );
 }
 
-export default Footer;

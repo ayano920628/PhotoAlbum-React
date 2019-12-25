@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 // import Paper from '@material-ui/core/Paper';
 // import Typography from '@material-ui/core/Typography';
 import Header from './Header';
-import Footer from './Footer';
+// import { Footer } from './Footer';
+import Footer from '../containers/Footer';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 // import tileData from './tileData';
@@ -102,7 +103,6 @@ class Dashboard extends Component {
             </GridList>
           </div>
           <Footer />
-          <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
         </React.Fragment>
       );
     } else {
@@ -110,7 +110,6 @@ class Dashboard extends Component {
         <React.Fragment >
           <Header />
           <Footer />
-          <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
         </React.Fragment >
       )
     }

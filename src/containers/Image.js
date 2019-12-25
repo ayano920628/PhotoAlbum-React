@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import Image from '../components/Image';
 
 // actionの読み込み
-import { logoutAndRedirect } from '../actions/auth.actions';
-import { getMe, clearMe } from '../actions/user.actions';
+import { getMe } from '../actions/user.actions';
 import { images, imageDelete, imageEdit, imageUpdate, imageChange } from '../actions/image.actions';
 import { Field, reduxForm } from 'redux-form';
 
@@ -21,10 +20,6 @@ const mapDispatchToProps = dispatch => ({
   },
   onGetImage(id) {
     dispatch(imageEdit(id));
-  },
-  onDelete() {
-    dispatch(logoutAndRedirect());
-    dispatch(clearMe());
   },
   onDeleteImage(id) {
     dispatch(imageDelete(id));

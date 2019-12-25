@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Header from './Header';
-import Footer from './Footer';
+// import { Footer } from './Footer';
+import Footer from '../containers/Footer';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
@@ -165,7 +166,6 @@ class UploadImage extends Component {
           </Typography>
         </Paper>
         <Footer />
-        <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
       </React.Fragment>
     );
   }
