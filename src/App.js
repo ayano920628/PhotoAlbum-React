@@ -7,11 +7,13 @@ import { withStyles } from '@material-ui/core/styles';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import Activate from './containers/Activate';
+import FamilyActivate from './containers/FamilyActivate';
 import Dashboard from './containers/Dashboard';
 import Upload from './containers/Upload';
 import Image from './containers/Image';
 import Album from './containers/Album';
 import Albumcopy from './containers/Albumcopy';
+import InviteFamily from './containers/InviteFamily';
 
 import Example from './components/test';
 
@@ -41,10 +43,12 @@ class App extends Component {
             <PrivateRoute path="/image/:id" component={Image}></PrivateRoute>
             <PrivateRoute path="/album" exact={true} component={Album}></PrivateRoute>
             <PrivateRoute path="/albumcopy" exact={true} component={Albumcopy}></PrivateRoute>
+            <PrivateRoute path="/invite" exact={true} component={InviteFamily}></PrivateRoute>
             <Route path="/" exact={true} component={Login}></Route>
             <Route path="/register" exact={true} component={Signup}></Route>
             <Route path="/registered" exact={true} component={Registered}></Route>
             <Route path="/verify" component={Activate}></Route>
+            <Route path="/familyverify" component={FamilyActivate}></Route>
             <Route path="/test" component={Example}></Route>
           </div>
         </Router>

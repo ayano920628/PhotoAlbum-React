@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Header from './Header';
 // import { Footer } from './Footer';
 import Footer from '../containers/Footer';
-
+import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -82,13 +82,19 @@ class UploadImage extends Component {
 
   render() {
     const { classes, image } = this.props;
-    console.log(this.props);
     return (
       <React.Fragment>
         <Header />
         <Paper className={classes.paper} elevation={1}>
           <Typography variant="headline" component="h3">
             <div className={classes.root}>
+              <IconButton
+                aria-label="delete"
+                color="primary"
+                onClick={this.handleDelete}
+              >
+                <DeleteIcon />
+              </IconButton>
               <img src={`${process.env.PUBLIC_URL}/${image.image.img_name}`} alt='' />
               <form className={classes.root} noValidate autoComplete="off">
                 <TextField
@@ -96,7 +102,6 @@ class UploadImage extends Component {
                   label=""
                   name="img_comment_1"
                   value={this.props.image.image.img_comment_1}
-                  // value={image.image.img_comment_1}
                   onChange={this.handleChange}
                 />
               </form>

@@ -82,3 +82,25 @@ export const activate = (name, code, password) => {
       );
   };
 }
+
+export const familyactivate = (name, code, password) => {
+  return dispatch => {
+    // dispatch(loginRequest({ email }));
+    userService.familyactivate(name, code, password)
+      .then(
+        data => {
+          if (data.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('token', JSON.stringify(data.token));
+          }
+
+          // return data;
+          // dispatch(loginSuccess(data));
+          dispatch(push('/dashboard'));
+        },
+        error => {
+          dispatch(loginFailure(error));
+        }
+      );
+  };
+}

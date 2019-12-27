@@ -1,0 +1,4 @@
+export const familyConstants = {
+  GET_FAMILY_REQUEST: 'GET_FAMILY_REQUEST',
+  INPUT_INVITE_DATA: 'INPUT_INVITE_DATA',
+}

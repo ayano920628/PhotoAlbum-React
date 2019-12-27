@@ -42,6 +42,10 @@ export const imageEdit = (id) => {
 export const imageUpdate = (id, img_comment_1, img_comment_2) => {
   return dispatch => {
     imageService.update(id, img_comment_1, img_comment_2)
+      .then(
+        data => dispatch(imageRead(data)),
+        error => dispatch(imageFailure(error))
+      );
   }
 };
 

@@ -8,7 +8,8 @@ export const userService = {
   logout,
   getMe,
   signup,
-  activate
+  activate,
+  familyactivate
 };
 
 // function login(username, password) {
@@ -23,7 +24,6 @@ function login(email, password) {
       }
     )
   };
-
   return fetch(`${apiHost}/authenticate`, requestOptions)
     .then(handleResponse)
     .then(data => {
@@ -95,7 +95,24 @@ function activate(name, code, password) {
       }
     )
   };
-
   return fetch(`${apiHost}/activate`, requestOptions)
     .then(handleResponse)
 }
+
+
+function familyactivate(name, code, password) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(
+      {
+        name,
+        code,
+        password
+      }
+    )
+  };
+  return fetch(`${apiHost}/familyactivate`, requestOptions)
+    .then(handleResponse)
+}
+
