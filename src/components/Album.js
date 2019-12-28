@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Header from './Header';
-// import { Footer } from './Footer';
 import Footer from '../containers/Footer';
 import Albumcopy from '../containers/Albumcopy';
+import { Example } from '../components/Example';
+// import Example from '../containers/Example';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
@@ -11,7 +12,9 @@ import { Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import ReactPDF from '@react-pdf/renderer';
 import { PDFDownloadLink, Document } from '@react-pdf/renderer'
 import { pdf, BlobProvider } from '@react-pdf/renderer';
-// const styles = StyleSheet.create({
+import { Link } from 'react-router-dom';
+
+// const style = StyleSheet.create({
 //   page: {
 //     flexDirection: 'row',
 //     backgroundColor: '#E4E4E4'
@@ -23,20 +26,18 @@ import { pdf, BlobProvider } from '@react-pdf/renderer';
 //   }
 // });
 
-const MyDoc = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
-        {/* <Albumcopy /> */}
-
-        <Text>Section #1</Text>
-      </View>
-      <View style={styles.section}>
-        <Text>Section #2</Text>
-      </View>
-    </Page>
-  </Document>
-);
+// const MyDoc = () => (
+//   < Document >
+//     <Page size="A4" style={style.page}>
+//       <View style={style.section}>
+//         <Text></Text>
+//       </View>
+//       <View style={style.section}>
+//         <Text>Section #2</Text>
+//       </View>
+//     </Page>
+//   </Document >
+// );
 // const blob = pdf(MyDoc).toBlob();
 
 const styles = theme => ({
@@ -94,6 +95,14 @@ class Album extends Component {
       image_src: '',
     }
     this.props.onMount();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const hrefPDF = document.getElementById('aaa').getElementsByTagName('a')[0].getAttribute('href');
+    console.log(hrefPDF);
+
   }
 
   render() {
@@ -103,14 +112,14 @@ class Album extends Component {
         <React.Fragment>
           <Header />
           <main className={classes.layout}>
-            {/* <Button variant="contained" color="primary" >
+            <Button variant="contained" color="primary" to='/albumcopy' component={Link} >
               アルバムpreview
-            </Button> */}
-            {/* <PDFDownloadLink document={<MyDoc props={this.props} />} fileName="somename.pdf">
+            </Button>
+            {/* <PDFDownloadLink document={<MyDoc />} fileName="somename.pdf">
               {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
             </PDFDownloadLink> */}
 
-            <div className={classes.root}>
+            {/* <div className={classes.root}>
               <GridList cellHeight={200} spacing={1} className={classes.gridList}>
                 {image.image.map((item) => (
                   <GridListTile>
@@ -118,13 +127,32 @@ class Album extends Component {
                   </GridListTile>
                 ))}
               </GridList>
-            </div>
-            <div>
-              {/* <BlobProvider document={MyDoc}>
-              {({ blob, url, loading, error }) => {
-                return <div>There's something going on on the fly</div>
-              }}
-            </BlobProvider> */}
+            </div> */}
+            <div id="aaa">
+              <BlobProvider document={<Example />}>
+                {({ blob, url, loading, error }) => {
+                  if (loading) {
+                    return "generating document...";
+                  }
+                  // if (blob) {
+                  // }
+                  if (!loading && url) {
+                    return (
+                      <a href={url} download>
+                        - Download (PDF) -
+                      </a>
+                    );
+                  }
+                  if (error) {
+                    return error;
+                  }
+                  return <div>The PDF is rendering...</div>;
+                }}
+              </BlobProvider>
+              <Button variant="contained" color="primary" onClick={this.handleSubmit} >
+                PDF送信
+              </Button>
+
             </div>
           </main>
           <Footer />
@@ -135,7 +163,6 @@ class Album extends Component {
         <React.Fragment >
           <Header />
           <Footer />
-          <Button color="inherit" onClick={this.props.onDelete}>logout</Button>
         </React.Fragment >
       )
     }

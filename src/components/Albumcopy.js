@@ -12,7 +12,6 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Pagination from "material-ui-flat-pagination";
 
 const theme = createMuiTheme();
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -92,7 +91,6 @@ function Albumcopy(props) {
       <div >
         <Header />
         <Footer />
-        <Button color="inherit" onClick={props.onDelete}>logout</Button>
       </div >
     )
   }

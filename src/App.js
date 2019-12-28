@@ -15,7 +15,7 @@ import Album from './containers/Album';
 import Albumcopy from './containers/Albumcopy';
 import InviteFamily from './containers/InviteFamily';
 
-import Example from './components/test';
+// import Example from './containers/Example';
 
 import { PrivateRoute } from './components/PrivateRoute';
 import Registered from './components/Registered';
@@ -49,7 +49,7 @@ class App extends Component {
             <Route path="/registered" exact={true} component={Registered}></Route>
             <Route path="/verify" component={Activate}></Route>
             <Route path="/familyverify" component={FamilyActivate}></Route>
-            <Route path="/test" component={Example}></Route>
+            {/* <Route path="/test" component={Example}></Route> */}
           </div>
         </Router>
       </React.Fragment>
