@@ -10,7 +10,13 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 // import SvgIcon from '@material-ui/core/SvgIcon';
-
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = theme => ({
   // root: {
@@ -40,6 +46,9 @@ const styles = theme => ({
   input: {
     display: 'none',
   },
+  inline: {
+    display: 'inline',
+  },
 });
 
 class UploadImage extends Component {
@@ -49,7 +58,8 @@ class UploadImage extends Component {
       img_comment_1: '',
       img_comment_2: '',
     }
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange_1 = this.handleChange_1.bind(this);
+    this.handleChange_2 = this.handleChange_2.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
   }
@@ -63,9 +73,14 @@ class UploadImage extends Component {
     if (id) this.props.onGetImage(id);
   }
 
-  handleChange(e) {
+  handleChange_1(e) {
     const { name, value } = e.target;
-    this.props.onChange(value);
+    this.props.onChange_1(value);
+  }
+
+  handleChange_2(e) {
+    const { name, value } = e.target;
+    this.props.onChange_2(value);
   }
 
   handleDelete() {
@@ -81,7 +96,7 @@ class UploadImage extends Component {
   }
 
   render() {
-    const { classes, image } = this.props;
+    const { classes, image, me } = this.props;
     return (
       <React.Fragment>
         <Header />
@@ -96,14 +111,46 @@ class UploadImage extends Component {
                 <DeleteIcon />
               </IconButton>
               <img src={`${process.env.PUBLIC_URL}/${image.image.img_name}`} alt='' />
+              <div>
+                <List className={classes.root}>
+                  <ListItem alignItems="flex-start">
+                    <ListItemAvatar>
+                      <Avatar
+                        alt=""
+                        src=""
+                      />
+                    </ListItemAvatar>
+                    <ListItemText primary={this.props.image.image.img_comment_1} />
+                    {me.user.user_type === 1 && <EditIcon />}
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                  <ListItem alignItems="flex-start">
+                    <ListItemAvatar>
+                      <Avatar
+                        alt=""
+                        src=""
+                      />
+                    </ListItemAvatar>
+                    <ListItemText primary={this.props.image.image.img_comment_2} />
+                    {me.user.user_type === 2 && <EditIcon />}
+                  </ListItem>
+                </List>
+              </div>
               <form className={classes.root} noValidate autoComplete="off">
-                <TextField
+                {me.user.user_type === 1 && <TextField
                   id="standard-basic"
                   label=""
                   name="img_comment_1"
                   value={this.props.image.image.img_comment_1}
-                  onChange={this.handleChange}
-                />
+                  onChange={this.handleChange_1}
+                />}
+                {me.user.user_type === 2 && <TextField
+                  id="standard-basic"
+                  label=""
+                  name="img_comment_2"
+                  value={this.props.image.image.img_comment_2}
+                  onChange={this.handleChange_2}
+                />}
               </form>
               <Button
                 variant="contained"

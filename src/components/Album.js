@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Footer from '../containers/Footer';
 import Albumcopy from '../containers/Albumcopy';
-import { Example } from '../components/Example';
+import Example from '../components/Example';
 // import Example from '../containers/Example';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -129,7 +129,7 @@ class Album extends Component {
               </GridList>
             </div> */}
             <div id="aaa">
-              <BlobProvider document={<Example />}>
+              {/* <BlobProvider document={<Example />}>
                 {({ blob, url, loading, error }) => {
                   if (loading) {
                     return "generating document...";
@@ -148,7 +148,7 @@ class Album extends Component {
                   }
                   return <div>The PDF is rendering...</div>;
                 }}
-              </BlobProvider>
+              </BlobProvider> */}
               <Button variant="contained" color="primary" onClick={this.handleSubmit} >
                 PDF送信
               </Button>

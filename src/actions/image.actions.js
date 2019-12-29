@@ -49,10 +49,19 @@ export const imageUpdate = (id, img_comment_1, img_comment_2) => {
   }
 };
 
-export const imageChange = (value) => {
+export const imageChange_1 = (value) => {
   return dispatch => {
     dispatch({
-      type: imageConstants.IMAGE_CHANGE,
+      type: imageConstants.IMAGE_CHANGE_1,
+      payload: value
+    })
+  }
+};
+
+export const imageChange_2 = (value) => {
+  return dispatch => {
+    dispatch({
+      type: imageConstants.IMAGE_CHANGE_2,
       payload: value
     })
   }

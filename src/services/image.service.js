@@ -77,7 +77,7 @@ function update(id, img_comment_1, img_comment_2) {
     body: JSON.stringify(
       {
         img_comment_1: img_comment_1,
-        img_comment_2: img_comment_2
+        img_comment_2: img_comment_2,
       }
     )
   };

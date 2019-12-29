@@ -47,13 +47,23 @@ export function image(state = initialState, action) {
         loading: false,
         error: true,
       };
-    case imageConstants.IMAGE_CHANGE:
+    case imageConstants.IMAGE_CHANGE_1:
       return {
         ...state,
         loading: false,
         image: {
           ...state.image,
           img_comment_1: action.payload,
+        },
+        // error: true,
+      };
+    case imageConstants.IMAGE_CHANGE_2:
+      return {
+        ...state,
+        loading: false,
+        image: {
+          ...state.image,
+          img_comment_2: action.payload,
         },
         // error: true,
       };

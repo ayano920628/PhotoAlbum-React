@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PhotoAlbumIcon from '@material-ui/icons/PhotoAlbum';
 
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
@@ -15,7 +15,7 @@ import Box from '@material-ui/core/Box';
 
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
-
+// import SwipeableViews from 'react-swipeable-views';
 
 // const useStyles = makeStyles(theme => ({
 //   root: {
@@ -50,8 +50,8 @@ function TabPanel(props) {
       component="div"
       role="tabpanel"
       hidden={value !== index}
-      id={`scrollable-force-tabpanel-${index}`}
-      aria-labelledby={`scrollable-force-tab-${index}`}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
       {value === index && <Box p={3}>{children}</Box>}
@@ -70,9 +70,20 @@ function a11yProps(index) {
     'aria-controls': `full-width-tabpanel-${index}`,
   };
 }
+
 function Header() {
-  const [value, setValue] = useState(0);
+  const initialTab = () => {
+    if (window.location.pathname === '/dashboard') {
+      return 0
+    } else if (window.location.pathname === '/album') {
+      return 1
+    } else if (window.location.pathname === '/upload') {
+      return 2
+    }
+  }
+  const [value, setValue] = useState(initialTab());
   const classes = useStyles();
+  const theme = useTheme();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -88,22 +99,18 @@ function Header() {
           scrollButtons="on"
           indicatorColor="secondary"
           textColor="secondary"
-          aria-label="scrollable force tabs example"
-        // aria-label="icon label tabs example"
+          aria-label="full width tabs example"
         >
           <Tab icon={<HomeIcon />} label="HOME" {...a11yProps(0)} to='/dashboard' component={Link} ></Tab>
           <Tab icon={<PhotoAlbumIcon />} label="ALBUM" {...a11yProps(1)} to='/album' component={Link} ></Tab>
           <Tab icon={<AddPhotoAlternateIcon />} label="PHOTO" {...a11yProps(2)} to='/upload' component={Link} ></Tab>
         </Tabs >
       </AppBar>
-      <TabPanel value={value} index={0}>
-        Item One
+      <TabPanel value={value} index={0} dir={theme.direction}>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
+      <TabPanel value={value} index={1} dir={theme.direction}>
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
+      <TabPanel value={value} index={2} dir={theme.direction}>
       </TabPanel>
     </div >
   );

@@ -98,7 +98,16 @@ function HomeIcon(props) {
 }
 
 export default function Footer(props) {
-  const [value, setValue] = useState(0);
+  const initialTab = () => {
+    if (window.location.pathname === '/dashboard') {
+      return 0
+    } else if (window.location.pathname === '/album') {
+      return 1
+    } else if (window.location.pathname === '/upload') {
+      return 2
+    }
+  }
+  const [value, setValue] = useState(initialTab());
   const classes = useStyles();
   const handleChange = (event, newValue) => {
     setValue(newValue);

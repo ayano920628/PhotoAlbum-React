@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Route } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -15,12 +14,10 @@ import Album from './containers/Album';
 import Albumcopy from './containers/Albumcopy';
 import InviteFamily from './containers/InviteFamily';
 
-// import Example from './containers/Example';
+import Example from './components/Example';
 
 import { PrivateRoute } from './components/PrivateRoute';
 import Registered from './components/Registered';
-
-// import { PDFViewer } from '@react-pdf/renderer';
 
 const styles = {
   root: {
@@ -33,9 +30,6 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        {/* <PDFViewer> */}
-        {/* <MyDocument /> */}
-        {/* </PDFViewer> */}
         <Router>
           <div className={classes.root}>
             <PrivateRoute path="/dashboard" exact={true} component={Dashboard}></PrivateRoute>
@@ -49,7 +43,7 @@ class App extends Component {
             <Route path="/registered" exact={true} component={Registered}></Route>
             <Route path="/verify" component={Activate}></Route>
             <Route path="/familyverify" component={FamilyActivate}></Route>
-            {/* <Route path="/test" component={Example}></Route> */}
+            <PrivateRoute path="/test" exact={true} component={Example}></PrivateRoute>
           </div>
         </Router>
       </React.Fragment>
