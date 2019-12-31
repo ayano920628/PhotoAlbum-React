@@ -3,15 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 // import Paper from '@material-ui/core/Paper';
 // import Typography from '@material-ui/core/Typography';
 import Header from './Header';
-// import { Footer } from './Footer';
 import Footer from '../containers/Footer';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 // import tileData from './tileData';
 import { Link } from 'react-router-dom';
-
-
-import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   // root: {
@@ -38,7 +34,6 @@ const styles = theme => ({
   },
   gridList: {
     width: 500,
-    // width: '80%',
     height: 600,
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
@@ -61,6 +56,7 @@ class Dashboard extends Component {
       image_src: '',
     }
     this.props.onMount();
+    // const h = window.innerWidth;
   }
 
   render() {

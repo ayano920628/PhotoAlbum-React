@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import SvgIcon from '@material-ui/core/SvgIcon';
-
+import HomeIcon from '@material-ui/icons/Home';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -22,9 +21,12 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    '& > svg': {
-      margin: theme.spacing(2),
-    },
+    // '& > svg': {
+    //   margin: theme.spacing(2),
+    // },
+    flexGrow: 1,
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
   },
   list: {
     width: 250,
@@ -37,6 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 function FooterMe(props) {
   const classes = useStyles();
+  const { me } = props.props;
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -47,7 +50,6 @@ function FooterMe(props) {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [side]: open });
   };
 
@@ -59,16 +61,19 @@ function FooterMe(props) {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))} */}
-        <ListItem button to='/invite' component={Link} >
-          <ListItemIcon><PersonAddIcon /></ListItemIcon>
-          <ListItemText primary='Invite' />
+        <ListItem button >
+          <ListItemIcon><PersonIcon /></ListItemIcon>
+          <ListItemText primary={me.user.name} />
         </ListItem>
+        {me.user.family_id
+          ? <ListItem button disabled >
+            <ListItemIcon><PersonAddIcon /></ListItemIcon>
+            <ListItemText primary='Invite' />
+          </ListItem>
+          : <ListItem button to='/invite' component={Link} >
+            <ListItemIcon><PersonAddIcon /></ListItemIcon>
+            <ListItemText primary='Invite' />
+          </ListItem>}
       </List>
       <Divider />
       <List>
@@ -89,22 +94,16 @@ function FooterMe(props) {
   );
 }
 
-function HomeIcon(props) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-    </SvgIcon >
-  );
-}
-
 export default function Footer(props) {
   const initialTab = () => {
     if (window.location.pathname === '/dashboard') {
       return 0
-    } else if (window.location.pathname === '/album') {
-      return 1
-    } else if (window.location.pathname === '/upload') {
-      return 2
+      // } else if (window.location.pathname === '/album') {
+      //   return 1
+      // } else if (window.location.pathname === '/upload') {
+      //   return 2
+    } else {
+      return;
     }
   }
   const [value, setValue] = useState(initialTab());

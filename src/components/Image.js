@@ -16,7 +16,6 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import EditIcon from '@material-ui/icons/Edit';
 
 const styles = theme => ({
   // root: {
@@ -120,8 +119,17 @@ class UploadImage extends Component {
                         src=""
                       />
                     </ListItemAvatar>
-                    <ListItemText primary={this.props.image.image.img_comment_1} />
-                    {me.user.user_type === 1 && <EditIcon />}
+                    {me.user.user_type === 1 ?
+                      <form className={classes.root} noValidate autoComplete="off">
+                        <TextField
+                          id="standard-basic"
+                          label=""
+                          name="img_comment_1"
+                          value={this.props.image.image.img_comment_1}
+                          onChange={this.handleChange_1}
+                        />
+                      </form> :
+                      <ListItemText primary={this.props.image.image.img_comment_1} />}
                   </ListItem>
                   <Divider variant="inset" component="li" />
                   <ListItem alignItems="flex-start">
@@ -131,27 +139,20 @@ class UploadImage extends Component {
                         src=""
                       />
                     </ListItemAvatar>
-                    <ListItemText primary={this.props.image.image.img_comment_2} />
-                    {me.user.user_type === 2 && <EditIcon />}
+                    {me.user.user_type === 2 ?
+                      <form className={classes.root} noValidate autoComplete="off">
+                        <TextField
+                          id="standard-basic"
+                          label=""
+                          name="img_comment_2"
+                          value={this.props.image.image.img_comment_2}
+                          onChange={this.handleChange_2}
+                        />
+                      </form> :
+                      <ListItemText primary={this.props.image.image.img_comment_2} />}
                   </ListItem>
                 </List>
               </div>
-              <form className={classes.root} noValidate autoComplete="off">
-                {me.user.user_type === 1 && <TextField
-                  id="standard-basic"
-                  label=""
-                  name="img_comment_1"
-                  value={this.props.image.image.img_comment_1}
-                  onChange={this.handleChange_1}
-                />}
-                {me.user.user_type === 2 && <TextField
-                  id="standard-basic"
-                  label=""
-                  name="img_comment_2"
-                  value={this.props.image.image.img_comment_2}
-                  onChange={this.handleChange_2}
-                />}
-              </form>
               <Button
                 variant="contained"
                 // variant="raised"

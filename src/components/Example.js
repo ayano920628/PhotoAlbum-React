@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
 import { makeStyles } from '@material-ui/core/styles';
-import Header from './Header';
-import Footer from '../containers/Footer';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import Button from '@material-ui/core/Button';
 // import Image from 'react-image-resizer';
-import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import Pagination from "material-ui-flat-pagination";
 
 import { connect } from 'react-redux';
 

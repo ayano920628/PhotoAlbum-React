@@ -81,41 +81,58 @@ class InviteFamily extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    return (
-      <React.Fragment>
-        <Header />
-        <CssBaseline />
-        <main className={classes.layout}>
-          <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockIcon />
-            </Avatar>
-            <Typography variant="headline">家族を招待しよう！</Typography>
-            {this.props.error ?
-              <p className={classes.alert}>ユーザ名またはパスワードが正しくありません。</p>
-              : ''
-            }
-            <form className={classes.form}>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="email">メールアドレス</InputLabel>
-                <Input id="email" name="email" autoFocus onChange={this.handleChange} />
-              </FormControl>
-              <Button
-                type="submit"
-                fullWidth
-                variant="raised"
-                color="primary"
-                className={classes.submit}
-                onClick={this.handleSubmit}
-              >
-                招待メールを送る
+    const { classes, me } = this.props;
+    if (me.user.family_id) {
+      return (
+        <React.Fragment>
+          <Header />
+          <CssBaseline />
+          <main className={classes.layout}>
+            <Paper className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockIcon />
+              </Avatar>
+              <Typography variant="headline">家族を招待済み</Typography>
+            </Paper>
+          </main>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <Header />
+          <CssBaseline />
+          <main className={classes.layout}>
+            <Paper className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockIcon />
+              </Avatar>
+              <Typography variant="headline">家族を招待しよう！</Typography>
+              {this.props.error ?
+                <p className={classes.alert}>ユーザ名またはパスワードが正しくありません。</p>
+                : ''
+              }
+              <form className={classes.form}>
+                <FormControl margin="normal" required fullWidth>
+                  <InputLabel htmlFor="email">メールアドレス</InputLabel>
+                  <Input id="email" name="email" autoFocus onChange={this.handleChange} />
+                </FormControl>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="raised"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={this.handleSubmit}
+                >
+                  招待メールを送る
               </Button>
-            </form>
-          </Paper>
-        </main>
-      </React.Fragment>
-    );
+              </form>
+            </Paper>
+          </main>
+        </React.Fragment>
+      );
+    }
   }
 }
 export default withStyles(styles)(InviteFamily);

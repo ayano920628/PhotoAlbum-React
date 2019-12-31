@@ -3,11 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Header from './Header';
-// import { Footer } from './Footer';
 import Footer from '../containers/Footer';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-
 import Button from '@material-ui/core/Button';
 // import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -28,15 +26,18 @@ const styles = theme => ({
 
   paper: {
     width: '50%',
+    height: 500,
     margin: '0 auto',
     minWidth: 300,
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
   },
   button: {
+    width: 200,
     margin: theme.spacing(1),
   },
   // root: {
@@ -50,14 +51,7 @@ const styles = theme => ({
   },
 });
 
-// const useStyles = makeStyles(theme => ({
-//   button: {
-//     margin: theme.spacing(1),
-//   },
-// }));
-
 let createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
-
 
 class UploadImage extends Component {
   constructor(props) {
@@ -66,7 +60,6 @@ class UploadImage extends Component {
       img_name: '',
       image_src: [],
     }
-    // this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
   }
@@ -90,7 +83,6 @@ class UploadImage extends Component {
   }
 
   uploadFile(e) {
-    // this.setState({ img_name: e.target.files[0] });
     this.setState({ img_name: e.target.files });
     let image_url = [];
     for (let i = 0; i < e.target.files.length; i++) {
@@ -100,7 +92,6 @@ class UploadImage extends Component {
   };
 
   render() {
-    //   const classes = useStyles();
     const { classes } = this.props;
     return (
       <React.Fragment>
@@ -116,6 +107,7 @@ class UploadImage extends Component {
                 type="file"
                 name="img_name"
                 onChange={this.uploadFile}
+                capture="environment"
               />
               <label htmlFor="contained-button-file">
                 <Button
@@ -125,7 +117,7 @@ class UploadImage extends Component {
                   startIcon={<CloudUploadIcon />}
                   component="span"
                 >
-                  Upload
+                  写真を選ぶ
                 </Button>
               </label>
               {/* <form className={classes.root} noValidate autoComplete="off">
@@ -137,20 +129,6 @@ class UploadImage extends Component {
                   <PhotoCamera />
                 </IconButton>
               </label> */}
-
-              <Button
-                variant="contained"
-                // variant="raised"
-                color="primary"
-                type="submit"
-                fullWidth
-                className={classes.submit}
-                onClick={this.handleSubmit}>
-                Save
-              </Button>
-            </div>
-            {/* {this.state.image_src.map((image) => <img src={image} alt='' />)} */}
-            <div className={classes.root}>
               <GridList cellHeight={200} spacing={1} className={classes.gridList}>
                 {this.state.image_src.map((image) => (
                   <GridListTile>
@@ -158,11 +136,16 @@ class UploadImage extends Component {
                   </GridListTile>
                 ))}
               </GridList>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth
+                className={classes.button}
+                onClick={this.handleSubmit}>
+                Save
+              </Button>
             </div>
-
-
-          </Typography>
-          <Typography component="p">
           </Typography>
         </Paper>
         <Footer />
