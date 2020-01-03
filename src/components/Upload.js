@@ -49,6 +49,13 @@ const styles = theme => ({
   input: {
     display: 'none',
   },
+  gridList: {
+    width: 500,
+    height: 400,
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
+
 });
 
 let createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
@@ -96,31 +103,32 @@ class UploadImage extends Component {
     return (
       <React.Fragment>
         <Header />
-        <Paper className={classes.paper} elevation={1}>
-          <Typography variant="headline" component="h3">
-            <div className={classes.root}>
-              <input
-                accept="image/*"
-                className={classes.input}
-                id="contained-button-file"
-                multiple
-                type="file"
-                name="img_name"
-                onChange={this.uploadFile}
-                capture="environment"
-              />
-              <label htmlFor="contained-button-file">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  startIcon={<CloudUploadIcon />}
-                  component="span"
-                >
-                  写真を選ぶ
+        <div className={classes.root}>
+          <Paper className={classes.paper} elevation={1}>
+            <Typography variant="headline" component="h3">
+              <div className={classes.root}>
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  name="img_name"
+                  onChange={this.uploadFile}
+                  capture="environment"
+                />
+                <label htmlFor="contained-button-file">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    startIcon={<CloudUploadIcon />}
+                    component="span"
+                  >
+                    写真を選ぶ
                 </Button>
-              </label>
-              {/* <form className={classes.root} noValidate autoComplete="off">
+                </label>
+                {/* <form className={classes.root} noValidate autoComplete="off">
                 <TextField id="standard-basic" label="Standard" name="img_comment_1" onChange={this.handleChange} />
               </form>
               <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
@@ -129,25 +137,26 @@ class UploadImage extends Component {
                   <PhotoCamera />
                 </IconButton>
               </label> */}
-              <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-                {this.state.image_src.map((image) => (
-                  <GridListTile>
-                    <img src={image} alt='' />
-                  </GridListTile>
-                ))}
-              </GridList>
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                fullWidth
-                className={classes.button}
-                onClick={this.handleSubmit}>
-                Save
+                <GridList cellHeight={200} spacing={1} className={classes.gridList}>
+                  {this.state.image_src.map((image) => (
+                    <GridListTile>
+                      <img src={image} alt='' />
+                    </GridListTile>
+                  ))}
+                </GridList>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  fullWidth
+                  className={classes.button}
+                  onClick={this.handleSubmit}>
+                  Save
               </Button>
-            </div>
-          </Typography>
-        </Paper>
+              </div>
+            </Typography>
+          </Paper>
+        </div>
         <Footer />
       </React.Fragment>
     );

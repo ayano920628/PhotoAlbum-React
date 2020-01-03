@@ -1,62 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
-import { makeStyles } from '@material-ui/core/styles';
-// import Image from 'react-image-resizer';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import React from 'react';
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import { BlobProvider } from '@react-pdf/renderer';
 
-import { connect } from 'react-redux';
+import ReactPDF, {
+  Document,
+  View,
+  Page,
+  Text,
+  Image,
+  StyleSheet,
+  Font,
+} from '@react-pdf/renderer';
 
-// actionの読み込み
-import { getMe } from '../actions/user.actions';
-import { images } from '../actions/image.actions';
+const Quixote = (props) => (
+  <Document>
+    <Page style={styles.body}>
+      <Text style={styles.header} fixed>
+        ~ My Photoalbum ~
+      </Text>
+      <Text style={styles.title}>Don Quijote de la Mancha</Text>
+      <Text style={styles.author}>Miguel de Cervantes</Text>
+      <View style={styles.view}>
+        {props.data.map((item) => {
+          return (
+            <View style={styles.viewsub}>
+              <Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
+              <Text style={styles.subtitle} >{item.img_comment_1}</Text>
+            </View>
+          )
+        })}
+      </View>
+      <Text style={styles.subtitle}>
+        Capítulo I: Que trata de la condición y ejercicio del famoso hidalgo D.
+        Quijote de la Mancha
+      </Text>
+      <Text style={styles.text}>
+        En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha
+      </Text>
+      <Text style={styles.text}>
+        En resolución, él se enfrascó tanto en su lectura, que se le pasaban las
+      </Text>
+      <Text style={styles.subtitle} break>
+        Capítulo II: Que trata de la primera salida que de su tierra hizo el
+        ingenioso Don Quijote
+      </Text>
+      {/* <Image
+        style={styles.image}
+        src={`${process.env.PUBLIC_URL}/20191229054340子どもc81e728d9d4c2f636f067f89cc14862c.jpg`}
+      /> */}
+      <Text style={styles.text}>
+        Hechas, pues, estas prevenciones, no quiso aguardar más tiempo a poner
+      </Text>
+      <Text style={styles.text}>
+        Casi todo aquel día caminó sin acontecerle cosa que de contar fuese, de
+      </Text>
+      <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
+        `${pageNumber} / ${totalPages}`
+      )} fixed />
+    </Page>
+  </Document >
+);
 
-// props経由でAPI経由で取得した自分自身の情報をコンポーネントに渡す
-const mapStateToProps = (state, ownProps) => ({
-  me: state.user.me,
-  image: state.image
+Font.register({
+  family: 'Oswald',
+  src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf'
 });
-
-const mapDispatchToProps = dispatch => ({
-  onMount() {
-    dispatch(getMe());
-    dispatch(images());
-  },
-});
-
-
-const theme = createMuiTheme();
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
-  paper: {
-    width: '80%',
-    margin: '0 auto',
-    minWidth: 300,
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
-  },
-  gridList: {
-    width: 500,
-    height: 600,
-    transform: 'translateZ(0)',
-  },
-  titleBar: {
-    background:
-      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-      'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-  },
-  icon: {
-    color: 'white',
-  },
-}));
 
 const styles = StyleSheet.create({
   body: {
@@ -67,91 +75,83 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     textAlign: 'center',
-    // fontFamily: 'Oswald'
+    fontFamily: 'Oswald'
   },
   author: {
     fontSize: 12,
     textAlign: 'center',
     marginBottom: 40,
   },
+  view: {
+    width: 500,
+    // height: 500,
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  viewsub: {
+    width: 250,
+    height: 250,
+  },
   subtitle: {
     fontSize: 18,
     margin: 12,
-    // fontFamily: 'Oswald'
+    fontFamily: 'Oswald'
   },
   text: {
     margin: 12,
     fontSize: 14,
     textAlign: 'justify',
-    // fontFamily: 'Times-Roman'
+    fontFamily: 'Times-Roman'
   },
   image: {
-    marginVertical: 30,
-    marginHorizontal: 100,
+    marginVertical: 15,
+    marginHorizontal: 10,
   },
-  emphasis: {
-    margin: 12,
-    fontSize: 24,
-    color: '#F22300',
-    // fontFamily: 'Oswald'
-  }
+  header: {
+    fontSize: 12,
+    marginBottom: 20,
+    textAlign: 'center',
+    color: 'grey',
+  },
+  pageNumber: {
+    position: 'absolute',
+    fontSize: 12,
+    bottom: 30,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    color: 'grey',
+  },
 });
 
-// Font.register({
-//   family: 'Oswald',
-//   src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf'
-// });
+const Render = (props) => (
+  <div>
+    {/* <PDFDownloadLink document={<Quixote />} fileName="somename.pdf">
+      {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+    </PDFDownloadLink> */}
+    <div>
+      <BlobProvider document={<Quixote data={props.data} />}>
+        {({ blob, url, loading, error }) => {
+          if (loading) {
+            return "generating document...";
+          }
+          if (!loading && url) {
+            return (
+              <a href={url} download>
+                - Download (PDF) -
+                      </a>
+            );
+          }
+          if (error) {
+            return error;
+          }
+          return <div>The PDF is rendering...</div>;
+        }}
+      </BlobProvider>
+    </div>
+  </div>
+)
 
-const Example = (props) => {
-  const classes = useStyles();
-  const [offset, setOffset] = useState(0);
-  useEffect(() => {
-    props.onMount();
-  }, []);
-
-  const { me, image } = props;
-  console.log(image.image.length);
-  if (image.image.length >= 1) {
-    return (
-      <Document>
-        <Page size="A4" style={styles.body} wrap>
-          <Text style={styles.title}>Don Quijote de la Mancha</Text>
-          <Text style={styles.author}>Miguel de Cervante</Text>
-          {image.image.map((item) => {
-            return (<Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />);
-          })}
-          {/* {image.image.map((item) => {
-            return (<Text style={styles.author} >{item.img_name}</Text>);
-          })} */}
-          < Text style={styles.subtitle}>
-            Capítulo I: Que trata de la condición y ejercicio del famoso hidalgo D.
-            Quijote de la Mancha
-          {me.user.id}
-          </Text>
-          <Text style={styles.author}>
-            En un lugar de la Mancha,
-      </Text>
-          <Text style={styles.emphasis}>Instead of showing the title here</Text>
-        </Page>
-        <Page size="A4" style={styles.body} wrap>
-          <Text style={styles.subtitle}>
-            Capítulo II: Que trata de la primera salida que de su tierra hizo el
-            ingenioso Don Quijote
-      </Text>
-          {/* <Text style={[styles.emphasis, { position: 'absolute', top: 60, right: 30 }]}> */}
-          <Text style={styles.emphasis}>
-            It breaks to the top of the next page
-      </Text>
-          <Text style={styles.text}>
-            Hechas, pues, estas prevenciones,
-      </Text>
-        </Page>
-      </Document >
-    )
-  } else {
-    return "a";
-  }
-};
-
-// export { Example };
-export default connect(mapStateToProps, mapDispatchToProps)(Example);
+export default Render;

@@ -8,7 +8,8 @@ import { images } from '../actions/image.actions';
 // props経由でAPI経由で取得した自分自身の情報をコンポーネントに渡す
 const mapStateToProps = (state, ownProps) => ({
   me: state.user.me,
-  image: state.image
+  image: state.image,
+  album: state.album,
 });
 
 const mapDispatchToProps = dispatch => ({

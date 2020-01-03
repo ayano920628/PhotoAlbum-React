@@ -12,6 +12,12 @@ export const albums = () => {
   };
 }
 
+export const changeCover = (value) => {
+  return dispatch => {
+    dispatch(albumCover(value));
+  };
+}
+
 export const changeTitle = (value) => {
   return dispatch => {
     dispatch(albumTitle(value));
@@ -48,6 +54,11 @@ const albumShow = (data) => ({
 const albumFailure = (error) => ({
   type: albumConstants.ALBUM_FAILURE,
   error
+});
+
+const albumCover = (value) => ({
+  type: albumConstants.ALBUM_COVER,
+  payload: value
 });
 
 const albumTitle = (value) => ({

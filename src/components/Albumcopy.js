@@ -10,6 +10,9 @@ import Image from 'react-image-resizer';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Pagination from "material-ui-flat-pagination";
+import Paper from '@material-ui/core/Paper';
+
+import Render from './Example';
 
 const theme = createMuiTheme();
 const useStyles = makeStyles(theme => ({
@@ -21,10 +24,12 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   paper: {
-    width: '80%',
+    // width: '90%',
+    height: 500,
     margin: '0 auto',
     minWidth: 300,
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -48,30 +53,42 @@ const useStyles = makeStyles(theme => ({
 function Albumcopy(props) {
   const classes = useStyles();
   const [offset, setOffset] = useState(0);
+  const [images, setImages] = useState([])
   useEffect(() => {
     props.onMount();
+    // setImages(props.image);
   }, []);
 
-  const { me, image } = props;
+  const { me, image, album } = props;
+  // console.log(images);
+  // const selectedImages = () => {
+  //   setImages(props.props.image);
+  // }
+
   if (image.image.length >= 1) {
+    console.log(image.image);
+    const result = image.image.filter((i) => i.taken >= '2019-12-29' && i.taken <= '2020-12-31');
     return (
       <div>
         <Header />
+        <Render data={image.image} />
         <div className={classes.root}>
-          <GridList cellHeight={200} spacing={3} className={classes.gridList}>
-            {image.image
-              .slice(offset, offset + 6)
-              .map((item) => (
-                <GridListTile>
-                  <Image
-                    src={`${process.env.PUBLIC_URL}/${item.img_name}`}
-                    alt=''
-                    width={180}
-                    height={180} />
-                </GridListTile>
-              ))
-            }
-          </GridList>
+          <Paper className={classes.paper} elevation={1}>
+            <GridList cellHeight={250} spacing={3} className={classes.gridList}>
+              {result
+                .slice(offset, offset + 6)
+                .map((item) => (
+                  <GridListTile>
+                    <Image
+                      src={`${process.env.PUBLIC_URL}/${item.img_name}`}
+                      alt=''
+                      width={250}
+                      height={250} />
+                  </GridListTile>
+                ))
+              }
+            </GridList>
+          </Paper>
         </div>
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
@@ -84,7 +101,7 @@ function Albumcopy(props) {
         </MuiThemeProvider>
 
         <Footer />
-      </div>
+      </div >
     );
   } else {
     return (

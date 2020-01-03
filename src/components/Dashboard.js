@@ -75,7 +75,7 @@ class Dashboard extends Component {
 
           <Header />
           <div className={classes.root}>
-            <GridList cellHeight={200} spacing={1} className={classes.gridList}>
+            <GridList cellHeight={200} spacing={1} className={classes.gridList} cols={2}>
               {image.image.map((item) => (
                 // <GridListTile key={tile.img} cols={tile.featured ? 2 : 1} rows={tile.featured ? 2 : 1}>
                 <GridListTile

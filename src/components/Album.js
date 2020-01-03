@@ -6,10 +6,10 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import { Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
-import ReactPDF from '@react-pdf/renderer';
-import { PDFDownloadLink, Document } from '@react-pdf/renderer'
-import { pdf, BlobProvider } from '@react-pdf/renderer';
+import { Document, Page, Text, View, Image, StyleSheet, BlobProvider } from '@react-pdf/renderer';
+// import ReactPDF from '@react-pdf/renderer';
+// import { PDFDownloadLink } from '@react-pdf/renderer'
+// import { pdf } from '@react-pdf/renderer';
 import { Link } from 'react-router-dom';
 
 import { useState, useEffect } from 'react';
@@ -19,6 +19,9 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -66,7 +69,7 @@ function MaterialUIPickersTo(props) {
   const handleDateChange = date => {
     setSelectedDate(date);
     const dateTo = moment(date).format('YYYY-MM-DD');
-    props.props.onPeriodFrom(dateTo);
+    props.props.onPeriodTo(dateTo);
   };
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -109,11 +112,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
   },
-  gridList: {
-    width: 500,
-    height: 600,
-    transform: 'translateZ(0)',
-  },
   titleBar: {
     background:
       'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
@@ -126,10 +124,10 @@ const useStyles = makeStyles(theme => ({
 
 const styles = StyleSheet.create({
   body: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     paddingTop: 35,
     paddingBottom: 65,
-    paddingHorizontal: 35,
+    // paddingHorizontal: 35,
   },
   title: {
     fontSize: 24,
@@ -139,7 +137,7 @@ const styles = StyleSheet.create({
   author: {
     fontSize: 12,
     textAlign: 'center',
-    marginBottom: 40,
+    // marginBottom: 40,
   },
   subtitle: {
     fontSize: 18,
@@ -153,9 +151,12 @@ const styles = StyleSheet.create({
     // fontFamily: 'Times-Roman'
   },
   image: {
-    maxWidth: 150,
-    maxHeight: 150,
-    marginVertical: 30,
+    // maxWidth: 500,
+    // maxHeight: 500,
+    // marginVertical: 30,
+    // marginHorizontal: 100,
+    height: 150,
+    marginBottom: 30,
     marginHorizontal: 100,
   },
   emphasis: {
@@ -176,6 +177,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
   },
+  gridList: {
+    // width: 500,
+    height: 200,
+    transform: 'translateZ(0)',
+  },
 
 
 });
@@ -185,46 +191,52 @@ const styles = StyleSheet.create({
 //   src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf'
 // });
 
-// const Example = (props) => {
-//   useEffect(() => {
-//     props.props.onMount();
-//   }, []);
-//   const { image } = props.props;
-//   if (image.image.length >= 1) {
-//     return (
-//       <Document>
-//         <Page size="A4" style={styles.body} wrap>
-//           <Text style={styles.title}>PhotoAlbum</Text>
-//           <Text style={styles.author}>2020.01.01</Text>
-//         </Page>
-//         <Page size="A4" style={styles.body} wrap>
-//           {image.image.map((item) => {
-//             return (<Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />);
-//           })}
-//           < Text style={styles.subtitle}>
-//             Happy New Year!
-//           </Text>
-//           <Text style={styles.emphasis}>
-//             Instead of showing the title here
-//           </Text>
-//         </Page>
-//         <Page size="A4" style={styles.body} wrap>
-//           <Text style={styles.subtitle}>
-//             Next Page
-//           </Text>
-//           <Text style={styles.emphasis}>
-//             Images...
-//           </Text>
-//           <Text style={styles.text}>
-//             my memory
-//           </Text>
-//         </Page>
-//       </Document >
-//     )
-//   } else {
-//     return "a";
-//   }
-// };
+// const Example = () => (
+const Example = (props) => {
+
+  // useEffect(() => {
+  //   props.props.onMount();
+  // }, []);
+  // const { image } = props.props;
+  // if (image.image.length >= 1) {
+  return (
+    <Document>
+      <Page size="A4" style={styles.body} wrap>
+        <Text style={styles.title}>PhotoAlbum</Text>
+        <Text style={styles.author}>2020.01.01</Text>
+        {/* </Page>
+        <Page size="A4" style={styles.body} wrap> */}
+        {/* < Text style={styles.subtitle} break>{image.image.length}</Text> */}
+        < Text style={styles.subtitle} break>
+          Happy New Year!
+          </Text>
+        <Image style={styles.image} src={`${process.env.PUBLIC_URL}/20191229054340子どもc81e728d9d4c2f636f067f89cc14862c.jpg`} />
+        {/* <Image style={styles.image} safePath={`20191229054340子どもc81e728d9d4c2f636f067f89cc14862c.jpg`} /> */}
+        {/* {image.image.map((item) => {
+            return (<Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />);
+          })} */}
+        <Text style={styles.emphasis}>
+          Instead of showing the title here
+          </Text>
+        {/* </Page>
+        <Page size="A4" style={styles.body} wrap> */}
+        <Text style={styles.subtitle} break>
+          Next Page
+          </Text>
+        <Text style={styles.emphasis}>
+          Images...
+          </Text>
+        <Text style={styles.text}>
+          my memory
+          </Text>
+      </Page>
+    </Document >
+    // )
+    // } else {
+    //   return "a";
+    // }
+  )
+};
 
 
 
@@ -242,14 +254,30 @@ const styles = StyleSheet.create({
 // });
 
 const SelectPhoto = (props) => {
-  console.log(props.props);
   const [value, setValue] = React.useState('');
+  const [cover, setCover] = useState(false);
+  const [state, setState] = useState(false);
+  const [coverId, setCoverId] = useState('');
+
+  const handleShowCover = event => {
+    event.preventDefault();
+    setCover(!cover);
+  };
+
+  const handleSelectCover = value => () => {
+    setCover(!cover);
+    setState(true);
+    setCoverId(value);
+    props.props.onSelectCover(value);
+  }
 
   const handleChangeTitle = event => {
+    event.preventDefault();
     props.props.onTitle(event.target.value);
   };
 
   const handleChangePeriod = event => {
+    event.preventDefault();
     setValue(event.target.value);
     props.props.onPeriod(event.target.value);
   };
@@ -257,16 +285,29 @@ const SelectPhoto = (props) => {
   return (
     <div>
       <div>
-        <Button variant="contained" color="primary" >
+        <Button variant="contained" color="primary" onClick={handleShowCover}>
           表紙の選択
         </Button>
+        <div>{cover &&
+          <GridList cellHeight={100} spacing={1} className={props.props.classes.gridList} cols={4}>
+            {props.props.image.image.map((item) => (
+              <GridListTile
+                onClick={handleSelectCover(item.id)}
+              >
+                <img src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
+              </GridListTile>
+            ))}
+          </GridList>
+        }</div>
+        <div>{state &&
+          <img src={`${process.env.PUBLIC_URL}/${props.props.image.image.coverId}`} alt='' />
+        }</div>
       </div>
       <div>Album Title
         <TextField
           id="standard-basic"
           label=""
           name="title"
-          // value={this.props.image.image.img_comment_1}
           onChange={handleChangeTitle}
         />
       </div>
@@ -289,7 +330,7 @@ const SelectPhoto = (props) => {
         </RadioGroup>
       </FormControl>
       <div>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" to={'/albumcopy'} component={Link}>
           Preview
         </Button>
       </div>
@@ -328,38 +369,40 @@ class Album extends Component {
       return (
         <React.Fragment>
           <Header />
+
           <main className={classes.layout}>
             <Paper className={classes.paper} elevation={1}>
               <Button variant="contained" color="primary" onClick={this.handleNewAlbum} >
                 New
               </Button>
               <div>{this.state.showFlag ? <SelectPhoto props={this.props} /> : ''}</div>
-              {/* <div id="aaa">
-              <BlobProvider document={<Example props={this.props} />}>
-                {({ blob, url, loading, error }) => {
-                  if (loading) {
-                    return "generating document...";
-                  }
-                  // if (blob) {
-                  // }
-                  if (!loading && url) {
-                    return (
-                      <a href={url} download>
-                        - Download (PDF) -
+              <div id="aaa">
+                <BlobProvider document={<Example props={this.props} />}>
+                  {/* <BlobProvider document={<Example />}> */}
+                  {({ blob, url, loading, error }) => {
+                    if (loading) {
+                      return "generating document...";
+                    }
+                    // if (blob) {
+                    // }
+                    if (!loading && url) {
+                      return (
+                        <a href={url} download>
+                          - Download (PDF) -
                       </a>
-                    );
-                  }
-                  if (error) {
-                    return error;
-                  }
-                  return <div>The PDF is rendering...</div>;
-                }}
-              </BlobProvider>
-              <Button variant="contained" color="primary" onClick={this.handleSubmit} >
-                PDF送信
-              </Button>
+                      );
+                    }
+                    if (error) {
+                      return error;
+                    }
+                    return <div>The PDF is rendering...</div>;
+                  }}
+                </BlobProvider>
+                {/* <Button variant="contained" color="primary" onClick={this.handleSubmit} >
+                  PDF送信
+              </Button> */}
 
-            </div> */}
+              </div>
             </Paper>
           </main>
           <Footer />
