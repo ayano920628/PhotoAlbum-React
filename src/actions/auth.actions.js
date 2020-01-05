@@ -13,9 +13,10 @@ export const login = (email, password) => {
         },
         error => {
           dispatch(loginFailure(error));
-        }
-      );
-  };
+          dispatch(logout());
+          dispatch(push('/'));
+        });
+  }
 }
 
 export const logoutAndRedirect = () => {

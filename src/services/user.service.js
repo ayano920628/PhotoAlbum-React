@@ -27,12 +27,9 @@ function login(email, password) {
   return fetch(`${apiHost}/authenticate`, requestOptions)
     .then(handleResponse)
     .then(data => {
-      // login successful if there's a jwt token in the response
       if (data.token) {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('token', JSON.stringify(data.token));
       }
-
       return data;
     });
 }

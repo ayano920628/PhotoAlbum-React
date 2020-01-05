@@ -56,7 +56,6 @@ class Dashboard extends Component {
       image_src: '',
     }
     this.props.onMount();
-    // const h = window.innerWidth;
   }
 
   render() {

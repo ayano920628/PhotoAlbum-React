@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PhotoAlbumIcon from '@material-ui/icons/PhotoAlbum';
 import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
@@ -33,7 +33,7 @@ function Header() {
     } else if (window.location.pathname === '/upload') {
       return 2
     } else {
-      return;
+      return 3
     }
   }
   const [value, setValue] = useState(initialTab());
@@ -53,7 +53,7 @@ function Header() {
       >
         <Tab icon={<HomeIcon />} label="HOME" to='/dashboard' component={Link} ></Tab>
         <Tab icon={<PhotoAlbumIcon />} label="ALBUM" to='/album' component={Link} ></Tab>
-        <Tab icon={<AddPhotoAlternateIcon />} label="PHOTO" to='/upload' component={Link} ></Tab>
+        <Tab icon={<AddPhotoAlternateIcon />} label="PHOTO" to='/upload' component={Link}></Tab>
       </Tabs >
     </Paper >
   );

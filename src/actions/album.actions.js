@@ -1,6 +1,17 @@
 import { albumConstants } from '../constants';
 import { albumService } from '../services';
 
+// export const album = () => {
+//   return dispatch => {
+//     dispatch(albumRequest());
+//     // albumService.show()
+//     //   .then(
+//     //     data => dispatch(albumShow(data)),
+//     //     error => dispatch(albumFailure(error))
+//     //   );
+//   };
+// }
+
 export const albums = () => {
   return dispatch => {
     dispatch(albumRequest());

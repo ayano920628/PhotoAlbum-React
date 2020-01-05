@@ -18,42 +18,21 @@ const Quixote = (props) => (
       <Text style={styles.header} fixed>
         ~ My Photoalbum ~
       </Text>
-      <Text style={styles.title}>Don Quijote de la Mancha</Text>
-      <Text style={styles.author}>Miguel de Cervantes</Text>
-      <View style={styles.view}>
+      <Text style={styles.title}>{props.data.title}</Text>
+      <Text style={styles.subtitle}>{props.data.title}</Text>
+      <Text style={styles.author}>Ayano</Text>
+      <View style={styles.view} break>
         {props.data.map((item) => {
           return (
-            <View style={styles.viewsub}>
+            <View style={styles.viewsub} wrap={false}>
               <Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
-              <Text style={styles.subtitle} >{item.img_comment_1}</Text>
+              <Text style={styles.text} >{item.img_comment_1}</Text>
+              <Text style={styles.text} >{item.img_comment_2}</Text>
             </View>
           )
         })}
       </View>
-      <Text style={styles.subtitle}>
-        Capítulo I: Que trata de la condición y ejercicio del famoso hidalgo D.
-        Quijote de la Mancha
-      </Text>
-      <Text style={styles.text}>
-        En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha
-      </Text>
-      <Text style={styles.text}>
-        En resolución, él se enfrascó tanto en su lectura, que se le pasaban las
-      </Text>
-      <Text style={styles.subtitle} break>
-        Capítulo II: Que trata de la primera salida que de su tierra hizo el
-        ingenioso Don Quijote
-      </Text>
-      {/* <Image
-        style={styles.image}
-        src={`${process.env.PUBLIC_URL}/20191229054340子どもc81e728d9d4c2f636f067f89cc14862c.jpg`}
-      /> */}
-      <Text style={styles.text}>
-        Hechas, pues, estas prevenciones, no quiso aguardar más tiempo a poner
-      </Text>
-      <Text style={styles.text}>
-        Casi todo aquel día caminó sin acontecerle cosa que de contar fuese, de
-      </Text>
+
       <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
         `${pageNumber} / ${totalPages}`
       )} fixed />
@@ -92,7 +71,7 @@ const styles = StyleSheet.create({
   },
   viewsub: {
     width: 250,
-    height: 250,
+    // height: 250,
   },
   subtitle: {
     fontSize: 18,

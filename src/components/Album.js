@@ -5,22 +5,16 @@ import Footer from '../containers/Footer';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-
-import { Document, Page, Text, View, Image, StyleSheet, BlobProvider } from '@react-pdf/renderer';
-// import ReactPDF from '@react-pdf/renderer';
-// import { PDFDownloadLink } from '@react-pdf/renderer'
-// import { pdf } from '@react-pdf/renderer';
 import { Link } from 'react-router-dom';
 
-import { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
 // import Image from 'react-image-resizer';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Image from 'react-image-resizer';
 
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -92,9 +86,7 @@ function MaterialUIPickersTo(props) {
   );
 }
 
-
-const theme = createMuiTheme();
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -104,13 +96,20 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     width: '80%',
+    height: 600,
     margin: '0 auto',
     minWidth: 300,
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
+  },
+  gridList: {
+    width: 300,
+    height: 300,
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
   },
   titleBar: {
     background:
@@ -120,138 +119,7 @@ const useStyles = makeStyles(theme => ({
   icon: {
     color: 'white',
   },
-}));
-
-const styles = StyleSheet.create({
-  body: {
-    // flexDirection: 'row',
-    paddingTop: 35,
-    paddingBottom: 65,
-    // paddingHorizontal: 35,
-  },
-  title: {
-    fontSize: 24,
-    textAlign: 'center',
-    // fontFamily: 'Oswald'
-  },
-  author: {
-    fontSize: 12,
-    textAlign: 'center',
-    // marginBottom: 40,
-  },
-  subtitle: {
-    fontSize: 18,
-    margin: 12,
-    // fontFamily: 'Oswald'
-  },
-  text: {
-    margin: 12,
-    fontSize: 14,
-    textAlign: 'justify',
-    // fontFamily: 'Times-Roman'
-  },
-  image: {
-    // maxWidth: 500,
-    // maxHeight: 500,
-    // marginVertical: 30,
-    // marginHorizontal: 100,
-    height: 150,
-    marginBottom: 30,
-    marginHorizontal: 100,
-  },
-  emphasis: {
-    margin: 12,
-    fontSize: 24,
-    color: '#F22300',
-    // fontFamily: 'Oswald'
-  },
-  paper: {
-    width: '50%',
-    height: 500,
-    margin: '0 auto',
-    minWidth: 300,
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
-  },
-  gridList: {
-    // width: 500,
-    height: 200,
-    transform: 'translateZ(0)',
-  },
-
-
 });
-
-// Font.register({
-//   family: 'Oswald',
-//   src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf'
-// });
-
-// const Example = () => (
-const Example = (props) => {
-
-  // useEffect(() => {
-  //   props.props.onMount();
-  // }, []);
-  // const { image } = props.props;
-  // if (image.image.length >= 1) {
-  return (
-    <Document>
-      <Page size="A4" style={styles.body} wrap>
-        <Text style={styles.title}>PhotoAlbum</Text>
-        <Text style={styles.author}>2020.01.01</Text>
-        {/* </Page>
-        <Page size="A4" style={styles.body} wrap> */}
-        {/* < Text style={styles.subtitle} break>{image.image.length}</Text> */}
-        < Text style={styles.subtitle} break>
-          Happy New Year!
-          </Text>
-        <Image style={styles.image} src={`${process.env.PUBLIC_URL}/20191229054340子どもc81e728d9d4c2f636f067f89cc14862c.jpg`} />
-        {/* <Image style={styles.image} safePath={`20191229054340子どもc81e728d9d4c2f636f067f89cc14862c.jpg`} /> */}
-        {/* {image.image.map((item) => {
-            return (<Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />);
-          })} */}
-        <Text style={styles.emphasis}>
-          Instead of showing the title here
-          </Text>
-        {/* </Page>
-        <Page size="A4" style={styles.body} wrap> */}
-        <Text style={styles.subtitle} break>
-          Next Page
-          </Text>
-        <Text style={styles.emphasis}>
-          Images...
-          </Text>
-        <Text style={styles.text}>
-          my memory
-          </Text>
-      </Page>
-    </Document >
-    // )
-    // } else {
-    //   return "a";
-    // }
-  )
-};
-
-
-
-
-// const style = StyleSheet.create({
-//   page: {
-//     flexDirection: 'row',
-//     backgroundColor: '#E4E4E4'
-//   },
-//   section: {
-//     margin: 10,
-//     padding: 10,
-//     flexGrow: 1
-//   }
-// });
 
 const SelectPhoto = (props) => {
   const [value, setValue] = React.useState('');
@@ -261,14 +129,16 @@ const SelectPhoto = (props) => {
 
   const handleShowCover = event => {
     event.preventDefault();
+    setState(false);
     setCover(!cover);
   };
 
   const handleSelectCover = value => () => {
+    setCoverId(value);
+    // console.log(coverId);
+    props.props.onSelectCover(value);
     setCover(!cover);
     setState(true);
-    setCoverId(value);
-    props.props.onSelectCover(value);
   }
 
   const handleChangeTitle = event => {
@@ -292,7 +162,7 @@ const SelectPhoto = (props) => {
           <GridList cellHeight={100} spacing={1} className={props.props.classes.gridList} cols={4}>
             {props.props.image.image.map((item) => (
               <GridListTile
-                onClick={handleSelectCover(item.id)}
+                onClick={handleSelectCover(item.img_name)}
               >
                 <img src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
               </GridListTile>
@@ -300,7 +170,7 @@ const SelectPhoto = (props) => {
           </GridList>
         }</div>
         <div>{state &&
-          <img src={`${process.env.PUBLIC_URL}/${props.props.image.image.coverId}`} alt='' />
+          <Image src={`${process.env.PUBLIC_URL}/${coverId}`} alt='' width={250} height={250} />
         }</div>
       </div>
       <div>Album Title
@@ -348,14 +218,7 @@ class Album extends Component {
       showFlag: false,
     }
     this.props.onMount();
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNewAlbum = this.handleNewAlbum.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    const hrefPDF = document.getElementById('aaa').getElementsByTagName('a')[0].getAttribute('href');
-    console.log(hrefPDF);
   }
 
   handleNewAlbum(e) {
@@ -376,33 +239,6 @@ class Album extends Component {
                 New
               </Button>
               <div>{this.state.showFlag ? <SelectPhoto props={this.props} /> : ''}</div>
-              <div id="aaa">
-                <BlobProvider document={<Example props={this.props} />}>
-                  {/* <BlobProvider document={<Example />}> */}
-                  {({ blob, url, loading, error }) => {
-                    if (loading) {
-                      return "generating document...";
-                    }
-                    // if (blob) {
-                    // }
-                    if (!loading && url) {
-                      return (
-                        <a href={url} download>
-                          - Download (PDF) -
-                      </a>
-                      );
-                    }
-                    if (error) {
-                      return error;
-                    }
-                    return <div>The PDF is rendering...</div>;
-                  }}
-                </BlobProvider>
-                {/* <Button variant="contained" color="primary" onClick={this.handleSubmit} >
-                  PDF送信
-              </Button> */}
-
-              </div>
             </Paper>
           </main>
           <Footer />

@@ -102,8 +102,8 @@ export default function Footer(props) {
       //   return 1
       // } else if (window.location.pathname === '/upload') {
       //   return 2
-    } else {
-      return;
+      // } else {
+      //   return ;
     }
   }
   const [value, setValue] = useState(initialTab());

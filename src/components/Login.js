@@ -13,7 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Header from './Header';
 // import Link from '@material-ui/core/Link';
 import { Link } from 'react-router-dom';
-
+// import { withRouter } from 'react-router';
 const styles = theme => ({
   root: {
     '& > *': {
@@ -83,7 +83,6 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // console.log(this.props);
     const { email, password } = this.props.me.user;
     if (email && password) {
       this.props.login(email, password);

@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   login(email, password) {
     dispatch(login(email, password));
-    dispatch(push('/dashboard'));
+    // dispatch(push('/dashboard'));
   },
   onEmailChange(inputdata) {
     dispatch(inputEmailInfo(inputdata));

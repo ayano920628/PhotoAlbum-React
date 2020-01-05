@@ -1,5 +1,6 @@
 import { userConstants } from '../constants';
 import { userService } from '../services';
+import { push } from 'react-router-redux';
 
 export const getMe = () => {
   return dispatch => {
@@ -7,7 +8,12 @@ export const getMe = () => {
     userService.getMe()
       .then(
         data => dispatch(getMeSuccess(data)),
-        error => dispatch(getMeFailure(error))
+        // error => dispatch(getMeFailure(error))
+        error => {
+          dispatch(getMeFailure(error));
+          userService.logout();
+          dispatch(push('/'));
+        }
       );
   };
 }
@@ -57,3 +63,4 @@ const inputSignupInfo = (value) => ({
 export const clearMe = () => ({
   type: userConstants.CLEAR_ME
 });
+

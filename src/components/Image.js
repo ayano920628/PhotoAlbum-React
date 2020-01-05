@@ -27,7 +27,7 @@ const styles = theme => ({
     width: '50%',
     margin: '0 auto',
     minWidth: 300,
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
