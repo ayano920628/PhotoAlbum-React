@@ -83,7 +83,9 @@ class UploadImage extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { img_name } = this.state;
+    // console.log(img_name);
     this.props.onUpload(img_name);
+    // console.log(this.state);
     // if (email && password) {
     // this.props.onUpload(img_name, img_comment_1);
     // }

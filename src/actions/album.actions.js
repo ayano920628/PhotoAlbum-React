@@ -1,16 +1,17 @@
 import { albumConstants } from '../constants';
 import { albumService } from '../services';
 
-// export const album = () => {
-//   return dispatch => {
-//     dispatch(albumRequest());
-//     // albumService.show()
-//     //   .then(
-//     //     data => dispatch(albumShow(data)),
-//     //     error => dispatch(albumFailure(error))
-//     //   );
-//   };
-// }
+export const sendAlbum = (file, title, cover) => {
+  return dispatch => {
+    // return 'aaa';
+    // dispatch(albumRequest());
+    albumService.store(file, title, cover)
+    // .then(
+    //   data => dispatch(albumShow(data)),
+    //   error => dispatch(albumFailure(error))
+    // );
+  };
+}
 
 export const albums = () => {
   return dispatch => {

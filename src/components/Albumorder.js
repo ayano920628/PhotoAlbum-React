@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Footer from '../containers/Footer';
 import Button from '@material-ui/core/Button';
-import Image from 'react-image-resizer';
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
-
 import Render from './Example';
 
-const theme = createMuiTheme();
 const useStyles = makeStyles(theme => ({
 
   root: {
@@ -51,23 +44,18 @@ const useStyles = makeStyles(theme => ({
 function Albumorder(props) {
   const classes = useStyles();
   const { me, image, album } = props;
-  console.log(album);
-  // useEffect(() => {
-  //   props.onMount();
-  // }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
     const hrefPDF = document.getElementById('aaa').getElementsByTagName('a')[0].getAttribute('href');
     console.log(hrefPDF);
   }
-
-  if (image.image.length >= 1 && (album.period_all === 'period_all' || album.period_all === undefined)) {
+  if (image.image.length >= 1) {
     return (
       <div>
         <Header />
         <div id="aaa">
-          <Render data={image.image} />
+          <Render data={props} />
         </div>
 
         <Button variant="contained" color="primary" onClick={handleSubmit} >
@@ -76,17 +64,6 @@ function Albumorder(props) {
         <Footer />
       </div >
     );
-  } else if (image.image.length >= 1 && album.period_all === 'period_select') {
-    return (
-      <div>
-        <Header />
-        <div id="aaa">
-          <Render data={image.image.filter((i) => i.taken >= album.period_from && i.taken <= album.period_to)} />
-        </div>
-        <Footer />
-      </div >
-    );
-
   } else {
     return (
       <div >

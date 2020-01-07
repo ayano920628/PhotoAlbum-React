@@ -1,5 +1,4 @@
 import React from 'react';
-import { PDFDownloadLink } from '@react-pdf/renderer'
 import { BlobProvider } from '@react-pdf/renderer';
 
 import ReactPDF, {
@@ -19,18 +18,29 @@ const Quixote = (props) => (
         ~ My Photoalbum ~
       </Text>
       <Text style={styles.title}>{props.data.title}</Text>
-      <Text style={styles.subtitle}>{props.data.title}</Text>
+      <Image style={styles.image} src={`${process.env.PUBLIC_URL}/${props.data.cover_photo}`} alt='' />
       <Text style={styles.author}>Ayano</Text>
       <View style={styles.view} break>
-        {props.data.map((item) => {
-          return (
-            <View style={styles.viewsub} wrap={false}>
-              <Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
-              <Text style={styles.text} >{item.img_comment_1}</Text>
-              <Text style={styles.text} >{item.img_comment_2}</Text>
-            </View>
-          )
-        })}
+        {(props.data.period_all === 'period_all') || (props.data.period_all === undefined) ?
+          props.data.images.map((item) => {
+            return (
+              <View style={styles.viewsub} wrap={false}>
+                <Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
+                <Text style={styles.text} >{item.img_comment_1}</Text>
+                <Text style={styles.text} >{item.img_comment_2}</Text>
+              </View>
+            )
+          }) :
+          props.data.images.filter((i) => i.taken >= props.data.period_from && i.taken <= props.data.period_to).map((item) => {
+            return (
+              <View style={styles.viewsub} wrap={false}>
+                <Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
+                <Text style={styles.text} >{item.img_comment_1}</Text>
+                <Text style={styles.text} >{item.img_comment_2}</Text>
+              </View>
+            )
+          })
+        }
       </View>
 
       <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
@@ -79,18 +89,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Oswald'
   },
   text: {
-    margin: 12,
+    margin: 5,
     fontSize: 14,
     textAlign: 'justify',
     fontFamily: 'Times-Roman'
   },
   image: {
-    marginVertical: 15,
+    marginVertical: 5,
     marginHorizontal: 10,
   },
   header: {
     fontSize: 12,
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: 'center',
     color: 'grey',
   },
@@ -107,12 +117,14 @@ const styles = StyleSheet.create({
 
 const Render = (props) => (
   <div>
-    {/* <PDFDownloadLink document={<Quixote />} fileName="somename.pdf">
-      {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
-    </PDFDownloadLink> */}
     <div>
-      <BlobProvider document={<Quixote data={props.data} />}>
+      <BlobProvider document={<Quixote data={props.data.album} />}>
         {({ blob, url, loading, error }) => {
+          if (blob) {
+            let file = new File([blob], "my_image.pdf", { type: "application/pdf", lastModified: new Date() })
+            // console.log(props.data.album.title);
+            props.data.onSendPdf(file, props.data.album.title, props.data.album.cover_photo)
+          }
           if (loading) {
             return "generating document...";
           }

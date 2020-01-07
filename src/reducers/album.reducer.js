@@ -25,7 +25,7 @@ export function album(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        album: action.payload,
+        images: action.payload,
       };
     case albumConstants.ALBUM_COVER:
       return {
