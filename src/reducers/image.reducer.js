@@ -1,16 +1,15 @@
 import { imageConstants } from '../constants';
 
 const initialState = {
-  loading: false,
   image: {
-    created_at: '',
     id: '',
+    user_id: '',
     img_comment_1: '',
     img_comment_2: '',
     img_name: '',
     taken: '',
-    updated_at: '',
-    user_id: ''
+    // created_at: '',
+    // updated_at: '',
   }
 };
 
@@ -19,38 +18,32 @@ export function image(state = initialState, action) {
     case imageConstants.IMAGE_REQUEST:
       return {
         ...state,
-        loading: true,
-        error: false,
+        // error: false,
       };
     case imageConstants.IMAGE_STORE:
       return {
         ...state,
-        loading: true,
         image: action.payload,
         // error: false,
       };
     case imageConstants.IMAGE_SHOW:
       return {
         ...state,
-        loading: false,
         image: action.payload,
       };
     case imageConstants.IMAGE_READ:
       return {
         ...state,
-        loading: false,
         image: action.payload,
       };
     case imageConstants.IMAGE_FAILURE:
       return {
         ...state,
-        loading: false,
         error: true,
       };
     case imageConstants.IMAGE_CHANGE_1:
       return {
         ...state,
-        loading: false,
         image: {
           ...state.image,
           img_comment_1: action.payload,
@@ -60,7 +53,6 @@ export function image(state = initialState, action) {
     case imageConstants.IMAGE_CHANGE_2:
       return {
         ...state,
-        loading: false,
         image: {
           ...state.image,
           img_comment_2: action.payload,

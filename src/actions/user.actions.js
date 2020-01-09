@@ -8,7 +8,6 @@ export const getMe = () => {
     userService.getMe()
       .then(
         data => dispatch(getMeSuccess(data)),
-        // error => dispatch(getMeFailure(error))
         error => {
           dispatch(getMeFailure(error));
           userService.logout();

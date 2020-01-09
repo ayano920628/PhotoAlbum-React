@@ -9,6 +9,7 @@ import { createBrowserHistory } from 'history'
 import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+// import './index.css';
 
 // historyインスタンスを作成する処理追加
 const history = createBrowserHistory();

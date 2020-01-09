@@ -7,9 +7,15 @@ export const sendAlbum = (file, title, cover) => {
     // dispatch(albumRequest());
     albumService.store(file, title, cover)
     // .then(
-    //   data => dispatch(albumShow(data)),
+    //   data => dispatch(albumNew(data)),
     //   error => dispatch(albumFailure(error))
     // );
+  };
+}
+
+export const setAlbum = (file) => {
+  return dispatch => {
+    dispatch(albumNew(file))
   };
 }
 
@@ -62,6 +68,12 @@ const albumShow = (data) => ({
   type: albumConstants.ALBUM_SHOW,
   payload: data
 });
+
+const albumNew = (data) => ({
+  type: albumConstants.ALBUM_NEW,
+  payload: data
+});
+
 
 const albumFailure = (error) => ({
   type: albumConstants.ALBUM_FAILURE,

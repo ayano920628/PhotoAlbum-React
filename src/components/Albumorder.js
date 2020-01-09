@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Footer from '../containers/Footer';
-import Button from '@material-ui/core/Button';
 import Render from './Example';
 
 const useStyles = makeStyles(theme => ({
@@ -44,23 +43,11 @@ const useStyles = makeStyles(theme => ({
 function Albumorder(props) {
   const classes = useStyles();
   const { me, image, album } = props;
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    const hrefPDF = document.getElementById('aaa').getElementsByTagName('a')[0].getAttribute('href');
-    console.log(hrefPDF);
-  }
   if (image.image.length >= 1) {
     return (
       <div>
         <Header />
-        <div id="aaa">
-          <Render data={props} />
-        </div>
-
-        <Button variant="contained" color="primary" onClick={handleSubmit} >
-          PDF送信
-              </Button>
+        <Render data={props} />
         <Footer />
       </div >
     );

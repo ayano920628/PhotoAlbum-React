@@ -3,5 +3,6 @@ export * from './user.reducer';
 export * from './image.reducer';
 export * from './family.reducer';
 export * from './album.reducer';
+export * from './albumorder.reducer';
 
 export const dumb = (state = {}) => state;

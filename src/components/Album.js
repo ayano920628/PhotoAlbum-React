@@ -173,7 +173,7 @@ const SelectPhoto = (props) => {
           <Image src={`${process.env.PUBLIC_URL}/${coverId}`} alt='' width={250} height={250} />
         }</div>
       </div>
-      <div>Album Title
+      <div>タイトル
         <TextField
           id="standard-basic"
           label=""
@@ -182,18 +182,18 @@ const SelectPhoto = (props) => {
         />
       </div>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Period</FormLabel>
+        <FormLabel component="legend">期間</FormLabel>
         <RadioGroup aria-label="position" name="position" value={value} onChange={handleChangePeriod} row>
           <FormControlLabel
             value="period_all"
             control={<Radio color="primary" />}
-            label="All Photo"
+            label="全期間"
             labelPlacement="bottom"
           />
           <FormControlLabel
             value="period_select"
             control={<Radio color="primary" />}
-            label="Select Period"
+            label="期間を指定する"
             labelPlacement="bottom"
           />
           {props.props.album.period_all === 'period_select' && <div><MaterialUIPickersFrom props={props.props} /> <MaterialUIPickersTo props={props.props} /></div>}
@@ -201,7 +201,7 @@ const SelectPhoto = (props) => {
       </FormControl>
       <div>
         <Button variant="contained" color="primary" to={'/albumcopy'} component={Link}>
-          Preview
+          プレビュー
         </Button>
       </div>
     </div>
@@ -236,7 +236,7 @@ class Album extends Component {
           <main className={classes.layout}>
             <Paper className={classes.paper} elevation={1}>
               <Button variant="contained" color="primary" onClick={this.handleNewAlbum} >
-                New
+                新しいアルバムを作る
               </Button>
               <div>{this.state.showFlag ? <SelectPhoto props={this.props} /> : ''}</div>
             </Paper>

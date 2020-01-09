@@ -32,25 +32,25 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        <Router>
-          <Switch>
-            <div className={classes.root}>
-              <PrivateRoute path="/dashboard" exact={true} component={Dashboard}></PrivateRoute>
-              <PrivateRoute path="/upload" exact={true} component={Upload}></PrivateRoute>
-              <PrivateRoute path="/image/:id" component={Image}></PrivateRoute>
-              <PrivateRoute path="/album" exact={true} component={Album}></PrivateRoute>
-              <PrivateRoute path="/albumcopy" exact={true} component={Albumcopy}></PrivateRoute>
-              <PrivateRoute path="/albumorder" exact={true} component={Albumorder}></PrivateRoute>
-              <PrivateRoute path="/invite" exact={true} component={InviteFamily}></PrivateRoute>
-              <Route path="/" exact={true} component={Login}></Route>
-              <Route path="/register" exact={true} component={Signup}></Route>
-              <Route path="/registered" exact={true} component={Registered}></Route>
-              <Route path="/verify" component={Activate}></Route>
-              <Route path="/familyverify" component={FamilyActivate}></Route>
-              <PrivateRoute path="/test" exact={true} component={Render}></PrivateRoute>
-            </div>
-          </Switch>
-        </Router>
+        {/* <Router> */}
+        <Switch>
+          <div className={classes.root}>
+            <PrivateRoute path="/dashboard" exact={true} component={Dashboard}></PrivateRoute>
+            <PrivateRoute path="/upload" exact={true} component={Upload}></PrivateRoute>
+            <PrivateRoute path="/image/:id" component={Image}></PrivateRoute>
+            <PrivateRoute path="/album" exact={true} component={Album}></PrivateRoute>
+            <PrivateRoute path="/albumcopy" exact={true} component={Albumcopy}></PrivateRoute>
+            <PrivateRoute path="/albumorder" exact={true} component={Albumorder}></PrivateRoute>
+            <PrivateRoute path="/invite" exact={true} component={InviteFamily}></PrivateRoute>
+            <Route path="/" exact={true} component={Login}></Route>
+            <Route path="/register" exact={true} component={Signup}></Route>
+            <Route path="/registered" exact={true} component={Registered}></Route>
+            <Route path="/verify" component={Activate}></Route>
+            <Route path="/familyverify" component={FamilyActivate}></Route>
+            <PrivateRoute path="/test" exact={true} component={Render}></PrivateRoute>
+          </div>
+        </Switch>
+        {/* </Router> */}
       </React.Fragment>
     );
   }

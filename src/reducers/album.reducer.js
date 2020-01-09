@@ -27,6 +27,15 @@ export function album(state = initialState, action) {
         loading: false,
         images: action.payload,
       };
+    case albumConstants.ALBUM_NEW:
+      return {
+        ...state,
+        loading: false,
+        album: {
+          ...state.image,
+          file: action.payload,
+        },
+      };
     case albumConstants.ALBUM_COVER:
       return {
         ...state,

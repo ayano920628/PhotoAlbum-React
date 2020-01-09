@@ -102,13 +102,6 @@ class UploadImage extends Component {
         <Paper className={classes.paper} elevation={1}>
           <Typography variant="headline" component="h3">
             <div className={classes.root}>
-              <IconButton
-                aria-label="delete"
-                color="primary"
-                onClick={this.handleDelete}
-              >
-                <DeleteIcon />
-              </IconButton>
               <img src={`${process.env.PUBLIC_URL}/${image.image.img_name}`} alt='' />
               <div>
                 <List className={classes.root}>
@@ -163,6 +156,14 @@ class UploadImage extends Component {
                 onClick={this.handleUpdate}>
                 Save
               </Button>
+              <IconButton
+                aria-label="delete"
+                color="primary"
+                onClick={this.handleDelete}
+              >
+                <DeleteIcon />
+              </IconButton>
+
             </div>
           </Typography>
           <Typography component="p">

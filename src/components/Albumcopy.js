@@ -37,8 +37,8 @@ const useStyles = makeStyles(theme => ({
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
   },
   gridList: {
-    width: 500,
-    height: 600,
+    // width: 500,
+    height: 500,
     transform: 'translateZ(0)',
   },
   titleBar: {
@@ -70,7 +70,7 @@ function Albumcopy(props) {
               width={250}
               height={250} /> */}
 
-            <GridList cellHeight={250} spacing={3} className={classes.gridList}>
+            <GridList cellHeight={150} spacing={3} className={classes.gridList}>
               {image.image
                 .slice(offset, offset + 6)
                 .map((item) => (
@@ -78,8 +78,8 @@ function Albumcopy(props) {
                     <Image
                       src={`${process.env.PUBLIC_URL}/${item.img_name}`}
                       alt=''
-                      width={250}
-                      height={250} />
+                      width={150}
+                      height={150} />
                   </GridListTile>
                 ))
               }
@@ -88,17 +88,19 @@ function Albumcopy(props) {
         </div>
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
-          <Button>表紙</Button>
+          {/* <Button>表紙</Button> */}
           <Pagination
             limit={6}
             offset={offset}
             total={image.image.length}
             onClick={(e, offset) => setOffset(offset)}
+            centerRipple={true}
+          // fullWidth={true}
           />
         </MuiThemeProvider>
-        <Button variant="contained" color="primary" to={'/albumorder'} component={Link}>
-          アルバムを作る
-        </Button>
+        {/* <Button variant="contained" color="primary" to={'/albumorder'} component={Link}>
+          発注する
+        </Button> */}
 
         <Footer />
       </div >
@@ -109,7 +111,7 @@ function Albumcopy(props) {
         <Header />
         <div className={classes.root}>
           <Paper className={classes.paper} elevation={1}>
-            <GridList cellHeight={250} spacing={3} className={classes.gridList}>
+            <GridList cellHeight={150} spacing={3} className={classes.gridList}>
               {image.image.filter((i) => i.taken >= album.period_from && i.taken <= album.period_to)
                 .slice(offset, offset + 6)
                 .map((item) => (
@@ -117,8 +119,8 @@ function Albumcopy(props) {
                     <Image
                       src={`${process.env.PUBLIC_URL}/${item.img_name}`}
                       alt=''
-                      width={250}
-                      height={250} />
+                      width={150}
+                      height={150} />
                   </GridListTile>
                 ))
               }
@@ -127,17 +129,20 @@ function Albumcopy(props) {
         </div>
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
+          {/* <Button>表紙</Button> */}
           <Pagination
             limit={6}
             offset={offset}
             total={image.image.filter((i) => i.taken >= album.period_from && i.taken <= album.period_to).length}
             onClick={(e, offset) => setOffset(offset)}
+            centerRipple={true}
+          // fullWidth={true}
+
           />
         </MuiThemeProvider>
-        <Button variant="contained" color="primary" to={'/albumorder'} component={Link}>
-          アルバムを作る
-        </Button>
-
+        {/* <Button variant="contained" color="primary" to={'/albumorder'} component={Link}>
+          発注する
+        </Button> */}
         <Footer />
       </div >
     );

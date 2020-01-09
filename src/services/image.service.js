@@ -37,10 +37,8 @@ function store(img_name) {
       body: params
     };
     fetch(`${apiHost}/images`, requestOptions);
-    // return fetch(`${apiHost}/images`, requestOptions)
-    //   .then(handleResponse)
   }
-  return handleResponse;
+  // return handleResponse();
 }
 
 function show() {

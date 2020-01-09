@@ -1,5 +1,6 @@
 import { imageConstants } from '../constants';
 import { imageService } from '../services';
+import { push } from 'react-router-redux';
 
 export const images = () => {
   return dispatch => {
@@ -14,18 +15,15 @@ export const images = () => {
 
 export const upload = (img_name) => {
   return dispatch => {
-    // dispatch(imageRequest());
-    imageService.store(img_name)
-    // .then(
-    //   data => dispatch(imageShow(data)),
-    //   error => dispatch(imageFailure(error))
-    // );
+    imageService.store(img_name);
+    dispatch(push('/Dashboard'));
   };
 }
 
 export const imageDelete = (id) => {
   return dispatch => {
-    imageService.destroy(id)
+    imageService.destroy(id);
+    dispatch(push('/Dashboard'));
   }
 };
 
@@ -46,6 +44,7 @@ export const imageUpdate = (id, img_comment_1, img_comment_2) => {
         data => dispatch(imageRead(data)),
         error => dispatch(imageFailure(error))
       );
+    dispatch(push('/Dashboard'));
   }
 };
 

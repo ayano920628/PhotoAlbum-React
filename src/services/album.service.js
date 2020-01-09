@@ -43,8 +43,8 @@ function store(album_name, title, cover) {
     headers: authHeader(),
     body: params
   };
-  fetch(`${apiHost}/albums`, requestOptions);
-  return handleResponse;
+  return fetch(`${apiHost}/albums`, requestOptions)
+    .then(handleResponse)
 }
 
 
