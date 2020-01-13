@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Header from './Header';
 import Footer from '../containers/Footer';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
-// import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const styles = theme => ({
@@ -17,16 +15,16 @@ const styles = theme => ({
   //   paddingBottom: theme.spacing.unit * 2,
   // },
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    // display: 'flex',
+    // flexWrap: 'wrap',
+    // justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
 
   paper: {
-    width: '50%',
-    height: 500,
+    width: '80%',
+    height: 600,
     margin: '0 auto',
     minWidth: 300,
     marginTop: theme.spacing(1),
@@ -50,8 +48,8 @@ const styles = theme => ({
     display: 'none',
   },
   gridList: {
-    width: 500,
-    height: 400,
+    width: 350,
+    height: 500,
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },
@@ -66,6 +64,7 @@ class UploadImage extends Component {
     this.state = {
       img_name: '',
       image_src: [],
+      showFlag: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
@@ -96,6 +95,7 @@ class UploadImage extends Component {
       image_url.push(createObjectURL(e.target.files[i]));
     }
     this.setState({ image_src: image_url });
+    this.setState({ showFlag: true })
   };
 
   render() {
@@ -105,56 +105,44 @@ class UploadImage extends Component {
         <Header />
         <div className={classes.root}>
           <Paper className={classes.paper} elevation={1}>
-            <Typography variant="headline" component="h3">
-              <div className={classes.root}>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  name="img_name"
-                  onChange={this.uploadFile}
-                  capture="environment"
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    startIcon={<CloudUploadIcon />}
-                    component="span"
-                  >
-                    写真を選ぶ
+            <input
+              accept="image/*"
+              className={classes.input}
+              id="contained-button-file"
+              multiple
+              type="file"
+              name="img_name"
+              onChange={this.uploadFile}
+            />
+            <label htmlFor="contained-button-file">
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                startIcon={<CloudUploadIcon />}
+                component="span"
+              >
+                写真を選ぶ
                 </Button>
-                </label>
-                {/* <form className={classes.root} noValidate autoComplete="off">
-                <TextField id="standard-basic" label="Standard" name="img_comment_1" onChange={this.handleChange} />
-              </form>
-              <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-              <label htmlFor="icon-button-file">
-                <IconButton color="primary" aria-label="upload picture" component="span">
-                  <PhotoCamera />
-                </IconButton>
-              </label> */}
-                <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-                  {this.state.image_src.map((image) => (
-                    <GridListTile>
-                      <img src={image} alt='' />
-                    </GridListTile>
-                  ))}
-                </GridList>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  fullWidth
-                  className={classes.button}
-                  onClick={this.handleSubmit}>
-                  Save
+            </label>
+            <GridList cellHeight={175} spacing={1} className={classes.gridList}>
+              {this.state.image_src.map((image) => (
+                <GridListTile>
+                  <img src={image} alt='' />
+                </GridListTile>
+              ))}
+            </GridList>
+            {this.state.showFlag
+              && <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth
+                className={classes.button}
+                onClick={this.handleSubmit}>
+                Save
               </Button>
-              </div>
-            </Typography>
+            }
           </Paper>
         </div>
         <Footer />

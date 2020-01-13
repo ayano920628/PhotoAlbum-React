@@ -1,6 +1,7 @@
 import { albumConstants } from '../constants';
 
 const initialState = {
+  error: false,
   loading: false,
   album: {
     period_all: '',
@@ -25,46 +26,60 @@ export function album(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        images: action.payload,
       };
-    case albumConstants.ALBUM_NEW:
-      return {
-        ...state,
-        loading: false,
-        album: {
-          ...state.image,
-          file: action.payload,
-        },
-      };
+    // case albumConstants.ALBUM_NEW:
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     album: {
+    //       ...state.image,
+    //       file: action.payload,
+    //     },
+    //   };
     case albumConstants.ALBUM_COVER:
       return {
         ...state,
         loading: false,
-        cover_photo: action.payload,
+        album: {
+          ...state.album,
+          cover_photo: action.payload,
+        },
       };
     case albumConstants.ALBUM_TITLE:
       return {
         ...state,
         loading: false,
-        title: action.payload,
+        album: {
+          ...state.album,
+          title: action.payload,
+        },
       };
     case albumConstants.ALBUM_PERIOD:
       return {
         ...state,
         loading: false,
-        period_all: action.payload,
+        album: {
+          ...state.album,
+          period_all: action.payload,
+        },
       };
     case albumConstants.ALBUM_PERIOD_FROM:
       return {
         ...state,
         loading: false,
-        period_from: action.payload,
+        album: {
+          ...state.album,
+          period_from: action.payload,
+        },
       };
     case albumConstants.ALBUM_PERIOD_TO:
       return {
         ...state,
         loading: false,
-        period_to: action.payload,
+        album: {
+          ...state.album,
+          period_to: action.payload,
+        },
       };
     case albumConstants.ALBUM_READ:
       return {

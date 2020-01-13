@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Footer from '../containers/Footer';
 import Render from './Example';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
 
@@ -14,8 +15,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   paper: {
-    // width: '90%',
-    height: 500,
+    width: '80%',
+    height: 600,
     margin: '0 auto',
     minWidth: 300,
     marginTop: theme.spacing(1),
@@ -47,7 +48,11 @@ function Albumorder(props) {
     return (
       <div>
         <Header />
-        <Render data={props} />
+        <div className={classes.root}>
+          <Paper className={classes.paper} elevation={1}>
+            <Render data={props} />
+          </Paper>
+        </div>
         <Footer />
       </div >
     );
@@ -55,6 +60,10 @@ function Albumorder(props) {
     return (
       <div >
         <Header />
+        <div className={classes.root}>
+          <Paper className={classes.paper} elevation={1}>
+          </Paper>
+        </div>
         <Footer />
       </div >
     )

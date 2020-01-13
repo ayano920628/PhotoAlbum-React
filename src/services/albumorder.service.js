@@ -30,8 +30,8 @@ function order(value) {
     headers: authHeader(),
     body: params
   };
-  return fetch(`${apiHost}`, requestOptions)
-    .then(handleResponse)
+  // return fetch(`${apiHost}`, requestOptions)
+  //   .then(handleResponse)
 }
 
 function logout() {

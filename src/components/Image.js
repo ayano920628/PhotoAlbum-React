@@ -17,6 +17,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 
+const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
+
 const styles = theme => ({
   // root: {
   //   ...theme.mixins.gutters(),
@@ -102,7 +104,8 @@ class UploadImage extends Component {
         <Paper className={classes.paper} elevation={1}>
           <Typography variant="headline" component="h3">
             <div className={classes.root}>
-              <img src={`${process.env.PUBLIC_URL}/${image.image.img_name}`} alt='' />
+              {/* <img src={`${process.env.PUBLIC_URL}/${image.image.img_name}`} alt='' /> */}
+              <img src={`${imgurl}/${image.image.img_name}`} alt='' />
               <div>
                 <List className={classes.root}>
                   <ListItem alignItems="flex-start">

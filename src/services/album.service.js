@@ -1,7 +1,7 @@
 import { authHeader, authHeaderType } from '../helpers';
 
-
-const apiHost = 'http://127.0.0.1:8000/api';
+const apiHost = 'http://13.112.62.50/api';
+// const apiHost = 'http://127.0.0.1:8000/api';
 
 export const albumService = {
   show,

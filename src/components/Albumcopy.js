@@ -11,8 +11,7 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Pagination from "material-ui-flat-pagination";
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
-
-import Render from './Example';
+const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
 
 const theme = createMuiTheme();
 const useStyles = makeStyles(theme => ({
@@ -25,8 +24,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   paper: {
-    // width: '90%',
-    height: 500,
+    width: '90%',
+    height: 650,
     margin: '0 auto',
     minWidth: 300,
     marginTop: theme.spacing(1),
@@ -37,14 +36,9 @@ const useStyles = makeStyles(theme => ({
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
   },
   gridList: {
-    // width: 500,
+    width: 300,
     height: 500,
     transform: 'translateZ(0)',
-  },
-  titleBar: {
-    background:
-      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-      'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   },
   icon: {
     color: 'white',
@@ -60,7 +54,7 @@ function Albumcopy(props) {
   }, []);
   if (image.image.length >= 1 && (album.period_all === 'period_all' || album.period_all === undefined)) {
     return (
-      <div>
+      <React.Fragment>
         <Header />
         <div className={classes.root}>
           <Paper className={classes.paper} elevation={1}>
@@ -70,13 +64,13 @@ function Albumcopy(props) {
               width={250}
               height={250} /> */}
 
-            <GridList cellHeight={150} spacing={3} className={classes.gridList}>
+            <GridList cellHeight={150} spacing={1} className={classes.gridList} cols={2}>
               {image.image
                 .slice(offset, offset + 6)
                 .map((item) => (
                   <GridListTile>
                     <Image
-                      src={`${process.env.PUBLIC_URL}/${item.img_name}`}
+                      src={`${imgurl}/${item.img_name}`}
                       alt=''
                       width={150}
                       height={150} />
@@ -84,40 +78,41 @@ function Albumcopy(props) {
                 ))
               }
             </GridList>
+            <MuiThemeProvider theme={theme}>
+              <CssBaseline />
+              <Button>表紙</Button>
+              <Pagination
+                limit={6}
+                offset={offset}
+                total={image.image.length}
+                onClick={(e, offset) => setOffset(offset)}
+                centerRipple={true}
+              // fullWidth={true}
+              />
+            </MuiThemeProvider>
+            <div>
+              <Button variant="contained" color="primary" to={'/albumorder'} component={Link}>
+                発注する
+            </Button>
+            </div>
           </Paper>
         </div>
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline />
-          {/* <Button>表紙</Button> */}
-          <Pagination
-            limit={6}
-            offset={offset}
-            total={image.image.length}
-            onClick={(e, offset) => setOffset(offset)}
-            centerRipple={true}
-          // fullWidth={true}
-          />
-        </MuiThemeProvider>
-        {/* <Button variant="contained" color="primary" to={'/albumorder'} component={Link}>
-          発注する
-        </Button> */}
-
         <Footer />
-      </div >
+      </ React.Fragment >
     );
   } else if (image.image.length >= 1 && album.period_all === 'period_select') {
     return (
-      <div>
+      <React.Fragment>
         <Header />
         <div className={classes.root}>
           <Paper className={classes.paper} elevation={1}>
-            <GridList cellHeight={150} spacing={3} className={classes.gridList}>
+            <GridList cellHeight={150} spacing={1} className={classes.gridList}>
               {image.image.filter((i) => i.taken >= album.period_from && i.taken <= album.period_to)
                 .slice(offset, offset + 6)
                 .map((item) => (
                   <GridListTile>
                     <Image
-                      src={`${process.env.PUBLIC_URL}/${item.img_name}`}
+                      src={`${imgurl}/${item.img_name}`}
                       alt=''
                       width={150}
                       height={150} />
@@ -137,22 +132,25 @@ function Albumcopy(props) {
             onClick={(e, offset) => setOffset(offset)}
             centerRipple={true}
           // fullWidth={true}
-
           />
         </MuiThemeProvider>
-        {/* <Button variant="contained" color="primary" to={'/albumorder'} component={Link}>
+        <Button variant="contained" color="primary" to={'/albumorder'} component={Link}>
           発注する
-        </Button> */}
+        </Button>
         <Footer />
-      </div >
+      </React.Fragment>
     );
 
   } else {
     return (
-      <div >
+      <React.Fragment>
         <Header />
+        <div className={classes.root}>
+          <Paper className={classes.paper} elevation={1}>
+          </Paper>
+        </div>
         <Footer />
-      </div >
+      </ React.Fragment>
     )
   }
 }

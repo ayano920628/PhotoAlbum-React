@@ -15,6 +15,7 @@ import ReactPDF, {
   StyleSheet,
   Font,
 } from '@react-pdf/renderer';
+const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,44 +26,45 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Quixote = (props) => (
-  <Document>
-    <Page style={styles.body}>
-      <Text style={styles.header} fixed>
-        ~ My Photoalbum ~
+const Quixote = (props) => {
+  return (
+    <Document>
+      <Page style={styles.body}>
+        <Text style={styles.header} fixed>
+          ~ My Photoalbum ~
       </Text>
-      <Text style={styles.title}>{props.data.title}</Text>
-      <Image style={styles.image} src={`${process.env.PUBLIC_URL}/${props.data.cover_photo}`} alt='' />
-      <Text style={styles.author}>Ayano</Text>
-      <View style={styles.view} break>
-        {(props.data.period_all === 'period_all') || (props.data.period_all === undefined) ?
-          props.data.images.map((item) => {
-            return (
-              <View style={styles.viewsub} wrap={false}>
-                <Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
-                <Text style={styles.text} >{item.img_comment_1}</Text>
-                <Text style={styles.text} >{item.img_comment_2}</Text>
-              </View>
-            )
-          }) :
-          props.data.images.filter((i) => i.taken >= props.data.period_from && i.taken <= props.data.period_to).map((item) => {
-            return (
-              <View style={styles.viewsub} wrap={false}>
-                <Image style={styles.image} src={`${process.env.PUBLIC_URL}/${item.img_name}`} alt='' />
-                <Text style={styles.text} >{item.img_comment_1}</Text>
-                <Text style={styles.text} >{item.img_comment_2}</Text>
-              </View>
-            )
-          })
-        }
-      </View>
-
-      <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
-        `${pageNumber} / ${totalPages}`
-      )} fixed />
-    </Page>
-  </Document >
-);
+        <Text style={styles.title}>{props.data.album.album.title}</Text>
+        <Image style={styles.image} src={`${imgurl}/${props.data.album.album.cover_photo}`} alt='' />
+        <Text style={styles.author}>Ayano</Text>
+        <View style={styles.view} break>
+          {(props.data.album.album.period_all === 'period_all') || (props.data.album.album.period_all === undefined) ?
+            props.data.image.image.map((item) => {
+              return (
+                <View style={styles.viewsub} wrap={false}>
+                  <Image style={styles.image} src={`${imgurl}/${item.img_name}`} alt='' />
+                  <Text style={styles.text} >{item.img_comment_1}</Text>
+                  <Text style={styles.text} >{item.img_comment_2}</Text>
+                </View>
+              )
+            }) :
+            props.data.image.image.filter((i) => i.taken >= props.data.album.album.period_from && i.taken <= props.data.album.album.period_to).map((item) => {
+              return (
+                <View style={styles.viewsub} wrap={false}>
+                  <Image style={styles.image} src={`${imgurl}/${item.img_name}`} alt='' />
+                  <Text style={styles.text} >{item.img_comment_1}</Text>
+                  <Text style={styles.text} >{item.img_comment_2}</Text>
+                </View>
+              )
+            })
+          }
+        </View>
+        <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
+          `${pageNumber} / ${totalPages}`
+        )} fixed />
+      </Page>
+    </Document >
+  )
+};
 
 Font.register({
   family: 'font',
@@ -260,7 +262,7 @@ const Render = (props) => {
     props.data.onOrder(props.data.albumorder)
   }
   return (
-    <BlobProvider document={<Quixote data={props.data.album} />}>
+    <BlobProvider document={<Quixote data={props.data} />}>
       {({ blob, url, loading, error }) => {
         if (blob) {
           let file = new File([blob], "my_image.pdf", { type: "application/pdf", lastModified: new Date() })

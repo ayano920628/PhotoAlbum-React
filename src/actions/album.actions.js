@@ -13,11 +13,11 @@ export const sendAlbum = (file, title, cover) => {
   };
 }
 
-export const setAlbum = (file) => {
-  return dispatch => {
-    dispatch(albumNew(file))
-  };
-}
+// export const setAlbum = (file) => {
+//   return dispatch => {
+//     dispatch(albumNew(file))
+//   };
+// }
 
 export const albums = () => {
   return dispatch => {
@@ -69,10 +69,10 @@ const albumShow = (data) => ({
   payload: data
 });
 
-const albumNew = (data) => ({
-  type: albumConstants.ALBUM_NEW,
-  payload: data
-});
+// const albumNew = (data) => ({
+//   type: albumConstants.ALBUM_NEW,
+//   payload: data
+// });
 
 
 const albumFailure = (error) => ({
