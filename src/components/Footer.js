@@ -98,8 +98,8 @@ export default function Footer(props) {
   const initialTab = () => {
     if (window.location.pathname === '/dashboard') {
       return 0
-      // } else if (window.location.pathname === '/album') {
-      //   return 1
+    } else if (window.location.pathname === '/albums') {
+      return 1
       // } else if (window.location.pathname === '/upload') {
       //   return 2
       // } else {
@@ -122,7 +122,7 @@ export default function Footer(props) {
         aria-label="icon label tabs example"
       >
         <Tab icon={<HomeIcon />} label="HOME" to='/dashboard' component={Link} ></Tab>
-        <Tab icon={<FavoriteIcon />} label="FAVORITES" ></Tab>
+        <Tab icon={<FavoriteIcon />} label="FAVORITES" to='/albums' component={Link} ></Tab>
         <Tab icon={<FooterMe props={props} />} label="ME" ></Tab>
       </Tabs >
     </Paper >

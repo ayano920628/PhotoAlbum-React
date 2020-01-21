@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import { useState } from 'react';
 // import Image from 'react-image-resizer';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
@@ -95,6 +96,7 @@ const styles = theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    height: 645,
   },
   paper: {
     width: '80%',
@@ -106,14 +108,15 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
+    padding: `${theme.spacing(0)}px ${theme.spacing(1)}px ${theme.spacing(0)}px`,
   },
   card: {
     height: 530,
-    width: '80%',
-    minWidth: 275,
+    width: '90%',
+    minWidth: 300,
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    padding: `${theme.spacing(0)}px ${theme.spacing(0)}px ${theme.spacing(0)}px`,
   },
   gridList: {
     width: 300,
@@ -129,11 +132,20 @@ const styles = theme => ({
   icon: {
     color: 'white',
   },
+  button: {
+    width: 200,
+    margin: theme.spacing(1),
+  },
+  input: {
+    display: 'none',
+  },
+
 });
 
 const SelectPhoto = (props) => {
   const [value, setValue] = useState('');
   const [cover, setCover] = useState(false);
+  const [voice, setVoice] = useState(false);
   const [state, setState] = useState(false);
   const [coverId, setCoverId] = useState('');
   const { classes } = props.props;
@@ -145,7 +157,6 @@ const SelectPhoto = (props) => {
 
   const handleSelectCover = value => () => {
     setCoverId(value);
-    // console.log(coverId);
     props.props.onSelectCover(value);
     setCover(!cover);
     setState(true);
@@ -160,10 +171,25 @@ const SelectPhoto = (props) => {
     event.preventDefault();
     setValue(event.target.value);
     props.props.onPeriod(event.target.value);
+    if (event.target.value === 'period_select') {
+      props.props.onPeriodFrom(moment(new Date()).format('YYYY-MM-DD'))
+      props.props.onPeriodTo(moment(new Date()).format('YYYY-MM-DD'))
+    }
+  };
+
+  const handleSelectFile = event => {
+    event.preventDefault();
+    setVoice(true);
+    props.props.onSetVoice(event.target.files[0]);
+  };
+
+  const handleSubmit = () => {
+    props.props.onSaveVoice(props.props.album.album.voice)
   };
 
   return (
-    <div className={classes.root}>
+    // <div className={classes.root}>
+    <div>
       <Card className={classes.card}>
         <CardActions>
           <Button variant="contained" color="primary" onClick={handleShowCover}>
@@ -171,7 +197,7 @@ const SelectPhoto = (props) => {
         </Button>
         </CardActions>
         {cover &&
-          <GridList cellHeight={75} spacing={1} className={props.props.classes.gridList} cols={4}>
+          <GridList cellHeight={74} spacing={1} className={props.props.classes.gridList} cols={4}>
             {props.props.image.image.map((item) => (
               <GridListTile
                 onClick={handleSelectCover(item.img_name)}
@@ -185,12 +211,47 @@ const SelectPhoto = (props) => {
           <Image src={`${imgurl}/${coverId}`} alt='' width={200} height={200} />
         }
         <div>
+          <input
+            accept="audio/*"
+            className={classes.input}
+            id="contained-button-file"
+            type="file"
+            name="voice_name"
+            onChange={handleSelectFile}
+            capture="microphone"
+          />
+          <label htmlFor="contained-button-file">
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              startIcon={<CloudUploadIcon />}
+              component="span"
+            >
+              音声を選ぶ
+                </Button>
+          </label>
+          {voice &&
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              component="span"
+              onClick={handleSubmit}
+            >
+              音声を登録
+            </Button>
+          }
+        </div>
+        <div>
           <TextField
+            required
             id="standard-basic"
-            label="Title"
+            label="アルバムタイトル"
             name="title"
             onChange={handleChangeTitle}
             margin="normal"
+            fullwidth
           />
         </div>
         <FormControl component="fieldset">
@@ -199,13 +260,13 @@ const SelectPhoto = (props) => {
             <FormControlLabel
               value="period_all"
               control={<Radio color="primary" />}
-              label="全期間"
+              label="全て"
               labelPlacement="bottom"
             />
             <FormControlLabel
               value="period_select"
               control={<Radio color="primary" />}
-              label="期間を指定する"
+              label="指定"
               labelPlacement="bottom"
             />
             {props.props.album.album.period_all === 'period_select' && <div><MaterialUIPickersFrom props={props.props} /> <MaterialUIPickersTo props={props.props} /></div>}
@@ -244,11 +305,11 @@ class Album extends Component {
         <React.Fragment>
           <Header />
           <div className={classes.root}>
-            <Paper className={classes.paper} elevation={1}>
+            <Paper className={classes.paper} elevation={0}>
               <Button variant="contained" color="primary" onClick={this.handleNewAlbum} >
                 新しいアルバムを作る
               </Button>
-              <div>{this.state.showFlag ? <SelectPhoto props={this.props} /> : ''}</div>
+              {this.state.showFlag ? <SelectPhoto props={this.props} /> : ''}
             </Paper>
           </div>
           <Footer />
@@ -259,7 +320,7 @@ class Album extends Component {
         <React.Fragment >
           <Header />
           <div className={classes.root}>
-            <Paper className={classes.paper} elevation={1}>
+            <Paper className={classes.paper} elevation={0}>
             </Paper>
           </div>
           <Footer />

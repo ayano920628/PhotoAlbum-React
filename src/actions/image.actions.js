@@ -16,14 +16,14 @@ export const images = () => {
 export const upload = (img_name) => {
   return dispatch => {
     imageService.store(img_name);
-    dispatch(push('/Dashboard'));
+    dispatch(push('/dashboard'));
   };
 }
 
 export const imageDelete = (id) => {
   return dispatch => {
     imageService.destroy(id);
-    dispatch(push('/Dashboard'));
+    dispatch(push('/dashboard'));
   }
 };
 
@@ -44,7 +44,7 @@ export const imageUpdate = (id, img_comment_1, img_comment_2) => {
         data => dispatch(imageRead(data)),
         error => dispatch(imageFailure(error))
       );
-    dispatch(push('/Dashboard'));
+    dispatch(push('/dashboard'));
   }
 };
 

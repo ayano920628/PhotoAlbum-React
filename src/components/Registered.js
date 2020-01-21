@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-
 import Avatar from '@material-ui/core/Avatar';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Header from './Header';
-import Footer from '../containers/Footer';
 
 const styles = theme => ({
   layout: {
@@ -22,8 +20,6 @@ const styles = theme => ({
   },
   paper: {
     marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(8),
-    height: 400,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -33,17 +29,6 @@ const styles = theme => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
-  form: {
-    width: '100%', // Fix IE11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    marginTop: theme.spacing(3),
-  },
-  alert: {
-    color: 'red',
-    fontSize: 14
-  }
 });
 
 class Registered extends Component {
@@ -51,16 +36,15 @@ class Registered extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        <Header menu="ログイン" />
+        <Header />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockIcon />
             </Avatar>
-            <Typography variant="headline">登録完了！</Typography>
+            <Typography variant="headline">メールを確認して登録を完了させてください！</Typography>
           </Paper>
         </main>
-        <Footer />
       </React.Fragment>
     );
   }

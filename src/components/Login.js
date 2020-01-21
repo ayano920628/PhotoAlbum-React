@@ -130,11 +130,9 @@ class Login extends Component {
                 ログイン
               </Button>
             </form>
-            <Typography className={classes.root}>
-              <Button variant="contained" color="primary" to='/register' component={Link}>
-                登録がまだの方はこちら
-              </Button>
-            </Typography>
+            <Button variant="contained" color='#9e9e9e' to='/register' component={Link}>
+              登録がまだの方はこちら
+            </Button>
           </Paper>
         </main>
       </React.Fragment>

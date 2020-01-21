@@ -11,6 +11,7 @@ import Dashboard from './containers/Dashboard';
 import Upload from './containers/Upload';
 import Image from './containers/Image';
 import Album from './containers/Album';
+import Albums from './containers/Albums';
 import Albumcopy from './containers/Albumcopy';
 import InviteFamily from './containers/InviteFamily';
 
@@ -20,6 +21,7 @@ import Render from './components/Example';
 
 import { PrivateRoute } from './components/PrivateRoute';
 import Registered from './components/Registered';
+import Ordered from './components/Ordered';
 
 const styles = {
   root: {
@@ -42,6 +44,8 @@ class App extends Component {
             <PrivateRoute path="/albumcopy" exact={true} component={Albumcopy}></PrivateRoute>
             <PrivateRoute path="/albumorder" exact={true} component={Albumorder}></PrivateRoute>
             <PrivateRoute path="/invite" exact={true} component={InviteFamily}></PrivateRoute>
+            <PrivateRoute path="/ordered" exact={true} component={Ordered}></PrivateRoute>
+            <PrivateRoute path="/albums" exact={true} component={Albums}></PrivateRoute>
             <Route path="/" exact={true} component={Login}></Route>
             <Route path="/register" exact={true} component={Signup}></Route>
             <Route path="/registered" exact={true} component={Registered}></Route>

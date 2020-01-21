@@ -16,6 +16,7 @@ import ReactPDF, {
   Font,
 } from '@react-pdf/renderer';
 const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
+const voiceurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/uploadvoice';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,7 +36,8 @@ const Quixote = (props) => {
       </Text>
         <Text style={styles.title}>{props.data.album.album.title}</Text>
         <Image style={styles.image} src={`${imgurl}/${props.data.album.album.cover_photo}`} alt='' />
-        <Text style={styles.author}>Ayano</Text>
+        <Image src={`https://api.qrserver.com/v1/create-qr-code/?data=${voiceurl}/${props.data.album.album.voice.voice_name}&size=100x100`} alt="" title="" />
+        {/* <Text style={styles.author}>Ayano</Text> */}
         <View style={styles.view} break>
           {(props.data.album.album.period_all === 'period_all') || (props.data.album.album.period_all === undefined) ?
             props.data.image.image.map((item) => {
@@ -215,19 +217,20 @@ const Order = (props) => {
     <form className={classes.root} noValidate autoComplete="off">
       <div>
         郵便番号
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeZip1} />
+          <TextField style={{ width: 80 }} id="outlined-basic" label="〒" variant="outlined" onChange={handleChangeZip1} required />
         -
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeZip2} />
+          <TextField style={{ width: 100 }} id="outlined-basic" label="〒" variant="outlined" onChange={handleChangeZip2} required />
       </div>
       <div>
         住所
           <TextField
           id="standard-select-currency"
           select
-          label="Select"
+          label="選択"
           // value={}
           onChange={handleChangePref}
-          helperText="Please select your currency"
+          helperText="都道府県選択"
+          required
         >
           {pref.map(option => (
             <MenuItem key={option.value} value={option.value}>
@@ -235,20 +238,20 @@ const Order = (props) => {
             </MenuItem>
           ))}
         </TextField>
-        <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeAddr1} />
-        <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeAddr2} />
+        <TextField id="outlined-basic" label="住所" variant="outlined" onChange={handleChangeAddr1} required />
+        <TextField id="outlined-basic" label="住所" variant="outlined" onChange={handleChangeAddr2} required />
       </div>
       <div>
         電話番号
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeTel} />
+          <TextField id="outlined-basic" label="☎︎" variant="outlined" onChange={handleChangeTel} required />
       </div>
       <div>
         名前
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeName} />
+          <TextField id="outlined-basic" label="名前" variant="outlined" onChange={handleChangeName} required />
       </div>
       <div>
         E-Mail
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeEmail} />
+          <TextField id="outlined-basic" label="E-Mail" variant="outlined" onChange={handleChangeEmail} required />
       </div>
     </form>
   )
@@ -258,10 +261,15 @@ const Order = (props) => {
 const Render = (props) => {
   const handleSubmit = file => () => {
     // e.preventDefault();
-    props.data.onSendPdf(file, props.data.album.title, props.data.album.cover_photo)
+    // console.log(file);
+    props.data.onSendPdf(file, props.data.album.album.title, props.data.album.album.cover_photo)
     props.data.onOrder(props.data.albumorder)
   }
   return (
+    // <div>
+    //   <Order data={props.data} />
+    //   <Button variant="contained" color="primary" onClick={handleSubmit}>発注する</Button>
+    // </div>
     <BlobProvider document={<Quixote data={props.data} />}>
       {({ blob, url, loading, error }) => {
         if (blob) {

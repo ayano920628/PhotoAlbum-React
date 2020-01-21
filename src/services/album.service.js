@@ -1,11 +1,12 @@
 import { authHeader, authHeaderType } from '../helpers';
 
-const apiHost = 'http://13.112.62.50/api';
-// const apiHost = 'http://127.0.0.1:8000/api';
+// const apiHost = 'http://13.112.62.50/api';
+const apiHost = 'http://127.0.0.1:8000/api';
 
 export const albumService = {
   show,
   store,
+  storevoice,
   logout,
 };
 
@@ -29,7 +30,7 @@ function show() {
     method: 'GET',
     headers: authHeader()
   };
-  return fetch(`${apiHost}/images`, requestOptions)
+  return fetch(`${apiHost}/albums`, requestOptions)
     .then(handleResponse)
 }
 
@@ -47,6 +48,17 @@ function store(album_name, title, cover) {
     .then(handleResponse)
 }
 
+function storevoice(voice_name) {
+  const params = new FormData();
+  params.append('voice_name', voice_name);
+  const requestOptions = {
+    method: 'POST',
+    headers: authHeader(),
+    body: params
+  };
+  return fetch(`${apiHost}/voices`, requestOptions)
+    .then(handleResponse)
+}
 
 function logout() {
   // ログアウト時にはローカルストレージからuserアイテムを削除する

@@ -25,17 +25,18 @@ export function album(state = initialState, action) {
     case albumConstants.ALBUM_SHOW:
       return {
         ...state,
+        album: action.payload,
         loading: false,
       };
-    // case albumConstants.ALBUM_NEW:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     album: {
-    //       ...state.image,
-    //       file: action.payload,
-    //     },
-    //   };
+    case albumConstants.ALBUM_VOICESHOW:
+      return {
+        ...state,
+        album: {
+          ...state.album,
+          voice: action.payload,
+        },
+        loading: false,
+      };
     case albumConstants.ALBUM_COVER:
       return {
         ...state,
@@ -86,6 +87,15 @@ export function album(state = initialState, action) {
         ...state,
         loading: false,
         album: action.payload,
+      };
+    case albumConstants.ALBUM_SETVOICE:
+      return {
+        ...state,
+        loading: false,
+        album: {
+          ...state.album,
+          voice: action.payload,
+        },
       };
     case albumConstants.ALBUM_FAILURE:
       return {

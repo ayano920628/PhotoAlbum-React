@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     width: '80%',
-    height: 600,
+    height: 590,
     margin: '0 auto',
     minWidth: 300,
     marginTop: theme.spacing(1),
@@ -62,6 +62,7 @@ function Albumorder(props) {
         <Header />
         <div className={classes.root}>
           <Paper className={classes.paper} elevation={1}>
+            {/* <Render data={props} /> */}
           </Paper>
         </div>
         <Footer />

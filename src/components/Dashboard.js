@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   paper: {
     width: '80%',
-    height: 600,
+    height: 630,
     margin: '0 auto',
     minWidth: 300,
     marginTop: theme.spacing(1),
@@ -31,21 +31,13 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
+    // padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
   },
   gridList: {
     width: 350,
     height: 600,
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
-  },
-  titleBar: {
-    background:
-      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-      'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-  },
-  icon: {
-    color: 'white',
   },
 });
 
@@ -66,7 +58,7 @@ class Dashboard extends Component {
         <React.Fragment>
           <Header />
           <div className={classes.root}>
-            <Paper className={classes.paper} elevation={1}>
+            <Paper className={classes.paper} elevation={0}>
               <GridList cellHeight={175} spacing={1} className={classes.gridList} cols={2}>
                 {image.image.map((item) => (
                   <GridListTile

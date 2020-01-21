@@ -4,7 +4,7 @@ import Album from '../components/Album';
 // actionの読み込み
 import { getMe } from '../actions/user.actions';
 import { images } from '../actions/image.actions';
-import { changeCover, changeTitle, changePeriod, changePeriodFrom, changePeriodTo } from '../actions/album.actions';
+import { changeCover, changeTitle, changePeriod, changePeriodFrom, changePeriodTo, setVoice, saveVoice } from '../actions/album.actions';
 // import { albums, changeCover, changeTitle, changePeriod, changePeriodFrom, changePeriodTo } from '../actions/album.actions';
 
 // props経由でAPI経由で取得した自分自身の情報をコンポーネントに渡す
@@ -34,6 +34,12 @@ const mapDispatchToProps = dispatch => ({
   },
   onPeriodTo(value) {
     dispatch(changePeriodTo(value));
+  },
+  onSetVoice(value) {
+    dispatch(setVoice(value));
+  },
+  onSaveVoice(file) {
+    dispatch(saveVoice(file));
   },
 });
 

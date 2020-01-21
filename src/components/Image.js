@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Header from './Header';
-// import { Footer } from './Footer';
 import Footer from '../containers/Footer';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
@@ -16,6 +14,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import Image from 'react-image-resizer';
 
 const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
 
@@ -26,7 +25,8 @@ const styles = theme => ({
   //   paddingBottom: theme.spacing.unit * 2,
   // },
   paper: {
-    width: '50%',
+    width: '80%',
+    height: 595,
     margin: '0 auto',
     minWidth: 300,
     marginTop: theme.spacing(1),
@@ -38,12 +38,12 @@ const styles = theme => ({
   button: {
     margin: theme.spacing(1),
   },
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-  },
+  // root: {
+  //   '& > *': {
+  //     margin: theme.spacing(1),
+  //     width: 200,
+  //   },
+  // },
   input: {
     display: 'none',
   },
@@ -102,75 +102,95 @@ class UploadImage extends Component {
       <React.Fragment>
         <Header />
         <Paper className={classes.paper} elevation={1}>
-          <Typography variant="headline" component="h3">
-            <div className={classes.root}>
-              {/* <img src={`${process.env.PUBLIC_URL}/${image.image.img_name}`} alt='' /> */}
-              <img src={`${imgurl}/${image.image.img_name}`} alt='' />
-              <div>
-                <List className={classes.root}>
-                  <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
-                      <Avatar
-                        alt=""
-                        src=""
-                      />
-                    </ListItemAvatar>
-                    {me.user.user_type === 1 ?
-                      <form className={classes.root} noValidate autoComplete="off">
-                        <TextField
-                          id="standard-basic"
-                          label=""
-                          name="img_comment_1"
-                          value={this.props.image.image.img_comment_1}
-                          onChange={this.handleChange_1}
-                        />
-                      </form> :
-                      <ListItemText primary={this.props.image.image.img_comment_1} />}
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                  <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
-                      <Avatar
-                        alt=""
-                        src=""
-                      />
-                    </ListItemAvatar>
-                    {me.user.user_type === 2 ?
-                      <form className={classes.root} noValidate autoComplete="off">
-                        <TextField
-                          id="standard-basic"
-                          label=""
-                          name="img_comment_2"
-                          value={this.props.image.image.img_comment_2}
-                          onChange={this.handleChange_2}
-                        />
-                      </form> :
-                      <ListItemText primary={this.props.image.image.img_comment_2} />}
-                  </ListItem>
-                </List>
-              </div>
-              <Button
-                variant="contained"
-                // variant="raised"
-                color="primary"
-                type="submit"
-                fullWidth
-                className={classes.submit}
-                onClick={this.handleUpdate}>
-                Save
+          {/* <div className={classes.root}> */}
+          {/* <img src={`${process.env.PUBLIC_URL}/${image.image.img_name}`} alt='' /> */}
+          <Image
+            src={`${imgurl}/${image.image.img_name}`}
+            alt=''
+            width={300}
+            height={300} />
+          <div>
+            <List className={classes.root}>
+              {me.user.user_type === 1 ?
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt=""
+                      src=""
+                      children={me.user.name}
+                    ></Avatar>
+                  </ListItemAvatar>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <TextField
+                      id="standard-basic"
+                      label=""
+                      name="img_comment_1"
+                      value={this.props.image.image.img_comment_1}
+                      onChange={this.handleChange_1}
+                    />
+                  </form>
+                </ListItem> :
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt=""
+                      src=""
+                      children=''
+                    ></Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={this.props.image.image.img_comment_1} />
+                </ListItem>}
+              {/* <Divider variant="inset" component="li" /> */}
+              {me.user.user_type === 2 ?
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt=""
+                      src=""
+                      children={me.user.name}
+                    ></Avatar>
+                  </ListItemAvatar>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <TextField
+                      id="standard-basic"
+                      label=""
+                      name="img_comment_2"
+                      value={this.props.image.image.img_comment_2}
+                      onChange={this.handleChange_2}
+                    />
+                  </form>
+                </ListItem> :
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt=""
+                      src=""
+                      children=''
+                    ></Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={this.props.image.image.img_comment_2} />
+                </ListItem>}
+            </List>
+          </div>
+          <Button
+            variant="contained"
+            // variant="raised"
+            color="primary"
+            type="submit"
+            fullWidth
+            className={classes.submit}
+            onClick={this.handleUpdate}>
+            Save
               </Button>
-              <IconButton
-                aria-label="delete"
-                color="primary"
-                onClick={this.handleDelete}
-              >
-                <DeleteIcon />
-              </IconButton>
+          <IconButton
+            aria-label="delete"
+            color="primary"
+            onClick={this.handleDelete}
+          >
+            <DeleteIcon />
+          </IconButton>
 
-            </div>
-          </Typography>
-          <Typography component="p">
-          </Typography>
+          {/* </div> */}
         </Paper>
         <Footer />
       </React.Fragment>
