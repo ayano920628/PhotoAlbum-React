@@ -11,7 +11,8 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Pagination from "material-ui-flat-pagination";
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
-const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
+const imgurl = `${process.env.PUBLIC_URL}`
+// const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
 
 const theme = createMuiTheme();
 const useStyles = makeStyles(theme => ({

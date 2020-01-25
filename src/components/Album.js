@@ -7,17 +7,18 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+// import CardActions from '@material-ui/core/CardActions';
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import { useState } from 'react';
-// import Image from 'react-image-resizer';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-
+import PhotoIcon from '@material-ui/icons/Photo';
+import AddIcon from '@material-ui/icons/Add';
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Image from 'react-image-resizer';
-
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -31,7 +32,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import moment from 'moment';
 import 'moment-timezone';
-const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
+const imgurl = `${process.env.PUBLIC_URL}`
+// const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
 
 function MaterialUIPickersFrom(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -49,7 +51,7 @@ function MaterialUIPickersFrom(props) {
           format="yyyy/MM/dd"
           // margin="normal"
           id="date-picker-inline-from"
-          label="Photo From"
+          label="Taken From"
           value={selectedDate}
           onChange={handleDateChange}
           KeyboardButtonProps={{
@@ -77,7 +79,7 @@ function MaterialUIPickersTo(props) {
           format="yyyy/MM/dd"
           // margin="normal"
           id="date-picker-inline-to"
-          label="Photo To"
+          label="Taken To"
           value={selectedDate}
           onChange={handleDateChange}
           KeyboardButtonProps={{
@@ -103,8 +105,6 @@ const styles = theme => ({
     height: 600,
     margin: '0 auto',
     minWidth: 300,
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -115,12 +115,11 @@ const styles = theme => ({
     width: '90%',
     minWidth: 300,
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
     padding: `${theme.spacing(0)}px ${theme.spacing(0)}px ${theme.spacing(0)}px`,
   },
   gridList: {
     width: 300,
-    height: 200,
+    height: 180,
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },
@@ -133,8 +132,8 @@ const styles = theme => ({
     color: 'white',
   },
   button: {
-    width: 200,
     margin: theme.spacing(1),
+    textTransform: 'none',
   },
   input: {
     display: 'none',
@@ -146,9 +145,12 @@ const SelectPhoto = (props) => {
   const [value, setValue] = useState('');
   const [cover, setCover] = useState(false);
   const [voice, setVoice] = useState(false);
+  const [savevoice, setSaveVoice] = useState(false);
   const [state, setState] = useState(false);
+  const [preview, setPreview] = useState(false);
   const [coverId, setCoverId] = useState('');
   const { classes } = props.props;
+
   const handleShowCover = event => {
     event.preventDefault();
     setState(false);
@@ -160,11 +162,17 @@ const SelectPhoto = (props) => {
     props.props.onSelectCover(value);
     setCover(!cover);
     setState(true);
+    if (props.props.album.album.title && props.props.album.album.cover_photo && props.props.album.album.period_all) {
+      setPreview(true);
+    }
   }
 
   const handleChangeTitle = event => {
     event.preventDefault();
     props.props.onTitle(event.target.value);
+    if (props.props.album.album.title && props.props.album.album.cover_photo && props.props.album.album.period_all) {
+      setPreview(true);
+    }
   };
 
   const handleChangePeriod = event => {
@@ -175,6 +183,9 @@ const SelectPhoto = (props) => {
       props.props.onPeriodFrom(moment(new Date()).format('YYYY-MM-DD'))
       props.props.onPeriodTo(moment(new Date()).format('YYYY-MM-DD'))
     }
+    if (props.props.album.album.title && props.props.album.album.cover_photo && props.props.album.album.period_all) {
+      setPreview(true);
+    }
   };
 
   const handleSelectFile = event => {
@@ -184,18 +195,21 @@ const SelectPhoto = (props) => {
   };
 
   const handleSubmit = () => {
-    props.props.onSaveVoice(props.props.album.album.voice)
+    props.props.onSaveVoice(props.props.album.album.voice);
+    if (props.props.album.album.voice.voice_name) {
+      setSaveVoice(true);
+    }
   };
 
   return (
     // <div className={classes.root}>
     <div>
       <Card className={classes.card}>
-        <CardActions>
-          <Button variant="contained" color="primary" onClick={handleShowCover}>
-            表紙の選択
+        {/* <CardActions> */}
+        <Button variant="contained" color="primary" onClick={handleShowCover} className={classes.button} startIcon={<PhotoIcon />} >
+          Cover Photo
         </Button>
-        </CardActions>
+        {/* </CardActions> */}
         {cover &&
           <GridList cellHeight={74} spacing={1} className={props.props.classes.gridList} cols={4}>
             {props.props.image.image.map((item) => (
@@ -208,7 +222,7 @@ const SelectPhoto = (props) => {
           </GridList>
         }
         {state &&
-          <Image src={`${imgurl}/${coverId}`} alt='' width={200} height={200} />
+          <Image src={`${imgurl}/${coverId}`} alt='' width={180} height={180} />
         }
         <div>
           <input
@@ -225,58 +239,84 @@ const SelectPhoto = (props) => {
               variant="contained"
               color="primary"
               className={classes.button}
-              startIcon={<CloudUploadIcon />}
+              startIcon={<RecordVoiceOverIcon />}
               component="span"
             >
-              音声を選ぶ
+              Voice
                 </Button>
           </label>
-          {voice &&
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              component="span"
-              onClick={handleSubmit}
-            >
-              音声を登録
+          {(voice && !savevoice) &&
+            <Container>
+              <Typography style={{ width: '20vh', display: 'inline-block' }} noWrap={true} >{props.props.album.album.voice.name}</Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                component="span"
+                onClick={handleSubmit}
+              >
+                Save
             </Button>
+            </Container>
+          }
+          {(voice && savevoice) &&
+            <Container>
+              <Typography style={{ width: '20vh', display: 'inline-block' }} noWrap={true} >{props.props.album.album.voice.name}</Typography>
+              <Button
+                variant="contained"
+                className={classes.button}
+                component="span"
+                disabled
+              >
+                Save
+            </Button>
+            </Container>
           }
         </div>
         <div>
           <TextField
-            required
+            required={true}
             id="standard-basic"
-            label="アルバムタイトル"
+            label="Title"
             name="title"
             onChange={handleChangeTitle}
             margin="normal"
             fullwidth
+
           />
         </div>
         <FormControl component="fieldset">
-          <FormLabel component="legend">期間</FormLabel>
+          <FormLabel component="legend">Period</FormLabel>
           <RadioGroup aria-label="position" name="position" value={value} onChange={handleChangePeriod} row>
             <FormControlLabel
               value="period_all"
               control={<Radio color="primary" />}
-              label="全て"
-              labelPlacement="bottom"
+              label="All"
+              labelPlacement="end"
             />
             <FormControlLabel
               value="period_select"
               control={<Radio color="primary" />}
-              label="指定"
-              labelPlacement="bottom"
+              label="Select"
+              labelPlacement="end"
             />
-            {props.props.album.album.period_all === 'period_select' && <div><MaterialUIPickersFrom props={props.props} /> <MaterialUIPickersTo props={props.props} /></div>}
+            {props.props.album.album.period_all === 'period_select' && <Typography style={{ width: '17vh', display: 'inline-block' }} noWrap={true} ><MaterialUIPickersFrom props={props.props} /> <MaterialUIPickersTo props={props.props} /></Typography>}
           </RadioGroup>
         </FormControl>
       </Card>
-      <Button variant="contained" color="primary" to={'/albumcopy'} component={Link}>
-        プレビュー
+      {
+        preview &&
+        <Button
+          variant="contained"
+          color="primary"
+          to={'/albumcopy'}
+          component={Link}
+          className={classes.button}
+        >
+          Preview
         </Button>
-    </div>
+      }
+    </div >
   )
 }
 
@@ -306,8 +346,8 @@ class Album extends Component {
           <Header />
           <div className={classes.root}>
             <Paper className={classes.paper} elevation={0}>
-              <Button variant="contained" color="primary" onClick={this.handleNewAlbum} >
-                新しいアルバムを作る
+              <Button variant="contained" color="primary" onClick={this.handleNewAlbum} className={classes.button} endIcon={<AddIcon />}>
+                New Album
               </Button>
               {this.state.showFlag ? <SelectPhoto props={this.props} /> : ''}
             </Paper>

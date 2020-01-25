@@ -3,8 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Header from './Header';
 import Footer from '../containers/Footer';
-import { Link } from 'react-router-dom';
-const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/uploadpdf';
+// const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/uploadpdf';
 
 const styles = theme => ({
   // root: {

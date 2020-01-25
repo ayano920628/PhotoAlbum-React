@@ -7,7 +7,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-
+import SaveIcon from '@material-ui/icons/Save';
 const styles = theme => ({
   // root: {
   //   ...theme.mixins.gutters(),
@@ -35,15 +35,9 @@ const styles = theme => ({
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(2)}px`,
   },
   button: {
-    width: 200,
     margin: theme.spacing(1),
+    textTransform: 'none',
   },
-  // root: {
-  //   '& > *': {
-  //     margin: theme.spacing(1),
-  //     width: 200,
-  //   },
-  // },
   input: {
     display: 'none',
   },
@@ -122,7 +116,7 @@ class UploadImage extends Component {
                 startIcon={<CloudUploadIcon />}
                 component="span"
               >
-                写真を選ぶ
+                Upload
                 </Button>
             </label>
             <GridList cellHeight={175} spacing={1} className={classes.gridList}>
@@ -133,15 +127,19 @@ class UploadImage extends Component {
               ))}
             </GridList>
             {this.state.showFlag
-              && <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                fullWidth
-                className={classes.button}
-                onClick={this.handleSubmit}>
-                Save
+              &&
+              <label htmlFor="contained-button-file">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  fullWidth
+                  className={classes.button}
+                  onClick={this.handleSubmit}
+                  startIcon={<SaveIcon />}>
+                  Save
               </Button>
+              </label>
             }
           </Paper>
         </div>

@@ -6,7 +6,8 @@ import Footer from '../containers/Footer';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { Link } from 'react-router-dom';
-const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
+const imgurl = `${process.env.PUBLIC_URL}`
+// const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
 
 const styles = theme => ({
   // root: {

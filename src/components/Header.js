@@ -21,6 +21,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     width: '100%',
     backgroundColor: theme.palette.background.paper,
+    textTransform: 'none',
+
   },
 }));
 
@@ -52,7 +54,7 @@ function Header() {
         aria-label="icon label tabs example"
       >
         <Tab icon={<HomeIcon />} label="HOME" to='/dashboard' component={Link} ></Tab>
-        <Tab icon={<PhotoAlbumIcon />} label="ALBUM" to='/album' component={Link} ></Tab>
+        <Tab icon={<PhotoAlbumIcon />} label="ALBUm" to='/album' component={Link} ></Tab>
         <Tab icon={<AddPhotoAlternateIcon />} label="PHOTO" to='/upload' component={Link}></Tab>
       </Tabs >
     </Paper >

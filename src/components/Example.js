@@ -5,8 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-
-import ReactPDF, {
+import Typography from '@material-ui/core/Typography';
+import {
   Document,
   View,
   Page,
@@ -15,15 +15,20 @@ import ReactPDF, {
   StyleSheet,
   Font,
 } from '@react-pdf/renderer';
-const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
-const voiceurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/uploadvoice';
+
+
+const imgurl = `${process.env.PUBLIC_URL}`
+// const imgurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/upload';
+const voiceurl = `${process.env.PUBLIC_URL}`
+// const voiceurl = 'http://www.photoalbum.com.s3-website-ap-northeast-1.amazonaws.com/uploadvoice';
 
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: 200,
-    },
+      padding: theme.spacing(0),
+      justifyContent: 'center',
+    }
   },
 }));
 
@@ -32,11 +37,11 @@ const Quixote = (props) => {
     <Document>
       <Page style={styles.body}>
         <Text style={styles.header} fixed>
-          ~ My Photoalbum ~
-      </Text>
+          ~ My Memory ~
+          </Text>
         <Text style={styles.title}>{props.data.album.album.title}</Text>
-        <Image style={styles.image} src={`${imgurl}/${props.data.album.album.cover_photo}`} alt='' />
-        <Image src={`https://api.qrserver.com/v1/create-qr-code/?data=${voiceurl}/${props.data.album.album.voice.voice_name}&size=100x100`} alt="" title="" />
+        <Image style={styles.coverimage} src={`${imgurl}/${props.data.album.album.cover_photo}`} alt='' />
+        <Image style={styles.qrcode} src={`https://api.qrserver.com/v1/create-qr-code/?data=${voiceurl}/${props.data.album.album.voice.voice_name}&size=100x100`} alt="" title="" />
         {/* <Text style={styles.author}>Ayano</Text> */}
         <View style={styles.view} break>
           {(props.data.album.album.period_all === 'period_all') || (props.data.album.album.period_all === undefined) ?
@@ -95,28 +100,50 @@ const styles = StyleSheet.create({
     width: 500,
     // height: 500,
     display: 'flex',
-    flexDirection: 'row',
+    // flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'font',
+    justifyContent: 'center',
   },
   viewsub: {
-    width: 250,
-    // height: 250,
+    // width: 250,
+    height: 350,
   },
   subtitle: {
     fontSize: 18,
     margin: 12,
-    fontFamily: 'sans-serif'
+    fontFamily: 'font'
   },
   text: {
     margin: 5,
     fontSize: 14,
-    textAlign: 'justify',
-    fontFamily: 'font'
+    textAlign: 'center',
+    fontFamily: 'font',
+    position: 'absolute',
+    bottom: 10,
+    color: 'white',
+    backgroundColor: '#80d8ff',
+    fontWeight: '700',
+  },
+  coverimage: {
+    marginVertical: 5,
+    marginHorizontal: 10,
+    objectFit: 'contain',
+    // maxWidth: 500,
+    maxHeight: 500,
   },
   image: {
     marginVertical: 5,
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
+    objectFit: 'contain',
+  },
+  qrcode: {
+    width: 100,
+    height: 100,
+    // marginVertical: 5,
+    // marginHorizontal: 10,
+    position: 'absolute',
+    bottom: 50,
+    right: 30,
   },
   header: {
     fontSize: 12,
@@ -215,21 +242,23 @@ const Order = (props) => {
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        郵便番号
-          <TextField style={{ width: 80 }} id="outlined-basic" label="〒" variant="outlined" onChange={handleChangeZip1} required />
-        -
-          <TextField style={{ width: 100 }} id="outlined-basic" label="〒" variant="outlined" onChange={handleChangeZip2} required />
-      </div>
-      <div>
-        住所
+      <Typography style={{ width: 55, display: 'inline-block' }}>
+        〒
+        </Typography>
+          <TextField required style={{ width: 60}} id="standard-required" label="XXX" defaultValue="" onChange={handleChangeZip1} />
+          <TextField disabled style={{ width: 10}} id="standard-required" label="" defaultValue="" />
+        <TextField required style={{ width: 80 }} id="standard-required" label="XXXX" defaultValue="" onChange={handleChangeZip2} />
+        <br/>
+      <Typography style={{ width: 55, display: 'inline-block' }}>
+        Address
+      </Typography>
           <TextField
           id="standard-select-currency"
           select
-          label="選択"
-          // value={}
+          label="Select"
+          style={{ width: 210}}
           onChange={handleChangePref}
-          helperText="都道府県選択"
+          helperText="Prefecture"
           required
         >
           {pref.map(option => (
@@ -237,22 +266,26 @@ const Order = (props) => {
               {option.label}
             </MenuItem>
           ))}
-        </TextField>
-        <TextField id="outlined-basic" label="住所" variant="outlined" onChange={handleChangeAddr1} required />
-        <TextField id="outlined-basic" label="住所" variant="outlined" onChange={handleChangeAddr2} required />
-      </div>
-      <div>
-        電話番号
-          <TextField id="outlined-basic" label="☎︎" variant="outlined" onChange={handleChangeTel} required />
-      </div>
-      <div>
-        名前
-          <TextField id="outlined-basic" label="名前" variant="outlined" onChange={handleChangeName} required />
-      </div>
-      <div>
+          </ TextField>
+        <Typography style={{ width: 55, display: 'inline-block' }}></Typography>
+        <TextField style={{ width: 220}} id="outlined-basic" label="Address1" variant="outlined" onChange={handleChangeAddr1} required />
+        <Typography style={{ width: 55, display: 'inline-block' }}></Typography>
+        <TextField style={{ width: 220}} id="outlined-basic" label="Address2" variant="outlined" onChange={handleChangeAddr2} required />
+        <br/>
+      <Typography style={{ width: 55, display: 'inline-block' }}>
+        Tel
+      </Typography>
+          <TextField style={{ width: 220}} id="outlined-basic" label="☎︎" variant="outlined" onChange={handleChangeTel} required />
+      <br/>
+      <Typography style={{ width: 55, display: 'inline-block' }}>
+        Name
+      </Typography>
+          <TextField style={{ width: 220}} id="outlined-basic" label="Ayano Omori" variant="outlined" onChange={handleChangeName} required />
+      <br/>
+      <Typography style={{ width: 55, display: 'inline-block' }}>
         E-Mail
-          <TextField id="outlined-basic" label="E-Mail" variant="outlined" onChange={handleChangeEmail} required />
-      </div>
+      </Typography>
+          <TextField style={{ width: 220}} id="outlined-basic" label="mymemory@sample.com" variant="outlined" onChange={handleChangeEmail} required />
     </form>
   )
 }
@@ -268,7 +301,7 @@ const Render = (props) => {
   return (
     // <div>
     //   <Order data={props.data} />
-    //   <Button variant="contained" color="primary" onClick={handleSubmit}>発注する</Button>
+    //   <Button variant="contained" color="primary" onClick={handleSubmit}>ORDER</Button>
     // </div>
     <BlobProvider document={<Quixote data={props.data} />}>
       {({ blob, url, loading, error }) => {
@@ -277,7 +310,7 @@ const Render = (props) => {
           return (
             <div>
               <Order data={props.data} />
-              <Button variant="contained" color="primary" onClick={handleSubmit(file)}>発注する</Button>
+              <Button variant="contained" color="primary" onClick={handleSubmit}>ORDER</Button>
             </div>
           );
         }

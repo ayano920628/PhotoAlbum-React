@@ -10,13 +10,14 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
   paper: {
     width: '80%',
     height: 590,
+    justifyContent: 'center',
     margin: '0 auto',
     minWidth: 300,
     marginTop: theme.spacing(1),
@@ -62,7 +63,7 @@ function Albumorder(props) {
         <Header />
         <div className={classes.root}>
           <Paper className={classes.paper} elevation={1}>
-            {/* <Render data={props} /> */}
+            <Render data={props} />
           </Paper>
         </div>
         <Footer />
